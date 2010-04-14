@@ -1,0 +1,12 @@
+doc/.DS_Store
+vendor/.DS_Store
+vendor/gems/.DS_Store
+vendor/plugins/.DS_Store
+.DS_Store
+config/database.yml
+tmp/**/*
+log/*.log
+db/*.sqlite3
+*.tmproj
+tmp/restart.txt
+app/stylesheets/.sass-cache/*
