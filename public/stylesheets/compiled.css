@@ -4,6 +4,11 @@
   width: 80%;
   min-width: 600px;
   max-width: 1200px; }
+  #page #header {
+    clear: both;
+    float: left;
+    width: 100%;
+    height: 100px; }
 
 #wrapper {
   float: left;
@@ -11,6 +16,14 @@
 
 #content {
   margin: 0 0 0 200px; }
+
+.bar {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  position: relative;
+  background: url("/images/bg.png");
+  width: 100%; }
 
 #side {
   float: left;
@@ -41,12 +54,6 @@ img {
 .clearBoth {
   clear: both; }
 
-#header {
-  clear: both;
-  float: left;
-  width: 100%;
-  height: 100px; }
-
 #wrapper {
   border-top-left-radius: 5px;
   -moz-border-radius-topleft: 5px;
@@ -63,8 +70,7 @@ img {
   border-bottom-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-left-radius: 5px;
-  background: url("/images/white-foot.png");
-  height: 100px; }
+  background: #FFF; }
 
 #page_effect {
   display: none; }
@@ -76,6 +82,7 @@ img {
   width: 425;
   height: 100px;
   position: relative;
+  float: right;
   margin-left: -1em;
   background: url("/images/logo_wht.png") no-repeat; }
   #head_image a {
@@ -99,7 +106,7 @@ img {
     left: 0;
     background: url("/images/logo_wht.png") no-repeat 0 -100px; }
 
-img-navi {
+h3 .navi {
   opacity: 0.5;
   filter: alpha(opacity=0.5); }
 
@@ -134,9 +141,29 @@ ul#sliding-navigation {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   position: relative;
-  float: center;
-  background: url("/images/bg.png");
-  padding: 1em;
-  max-width: 325px;
-  max-height: 200px;
-  clear: both; }
+  padding: 25px 25px;
+  width: 50%;
+  min-height: 50%;
+  border: 3px gray solid; }
+
+.loginPadding {
+  position: relative;
+  margin: 0;
+  padding: 50px;
+  display: block; }
+
+#content-box {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  position: relative;
+  padding: 25px 25px;
+  min-width: 50%;
+  min-height: 50%;
+  border: 3px gray solid; }
+
+.loginPadding {
+  position: relative;
+  margin: 0;
+  padding: 50px;
+  display: block; }

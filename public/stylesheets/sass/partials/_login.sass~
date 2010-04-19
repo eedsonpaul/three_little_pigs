@@ -1,10 +1,14 @@
 #login-box
   +border-radius(10px)
-  :position relative
-  :float center
-  :background url("/images/bg.png")
-  :padding 1em
-  :min-width 325px
-  :min-height 200px
-  :clear both
-  
+  +relative
+  :padding 25px 25px 
+  :width 50%
+  :min-height 50%
+  :border 3px gray solid
+
+
+.loginPadding
+  +relative
+  :margin 0
+  :padding 50px
+  :display block

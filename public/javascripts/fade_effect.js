@@ -11,7 +11,7 @@ var Header = {
 };
 
 $(document).ready(function() {
-    $('img').each(function() {
+    $(".navi").each(function() {
         $(this).hover(function() {
             $(this).stop().animate({ opacity: 1.0 }, 500);
         },

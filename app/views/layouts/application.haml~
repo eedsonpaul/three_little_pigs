@@ -3,41 +3,34 @@
   = render :partial => 'layouts/includes'
 
 #body
-  #page_effect
-    #page
-      #header
-        .headerPadding
-          %center
-            %h1.code#head_image
-              %span.fake-hover
-              %a{:href=> "/homepage"}
-        %div.clearBoth
+  #page
+    #header
+      .headerPadding
+        %h1.code#head_image
+          %span.fake-hover
+          %a{:href=> "/homepage"}
+      %div.clearBoth
 
-      #midpage
-        #wrapper
-          #content
-            .contentPadding
+    #midpage
+      #wrapper
+        #content
+          .contentPadding
+            .bar
+              %br
+            #page_effect
               = yield
-        #side
-          .sidePadding
-            #navigation-block
-              %ul.code#sliding-navigation
-                %li.sliding-element
-                  %h3
-                    %a{:href => '/homepage'}
-                      %img-navi{:src => '/images/buttons/home-blk.png'}
-                %li.sliding-element
-                  %h3
-                    %a{:href => '/login'}
-                      %img-navi{:src => '/images/buttons/login.png'}
-                %li.sliding-element
-                  %h3
-                    %a{:href => '/#'}
-                      %img-navi{:src => '/images/buttons/about.png'}
+      #side
+        .sidePadding
+          = render :partial => 'homepage/sidebar'
+          
+      
+      %div.clearBoth
 
-        %div.clearBoth
-
-      #footer
-        .footerPadding
-          %p this should be in the footer
-        %div.clearBoth
+    #footer
+      .footerPadding
+        .bar
+          %center
+            %table
+              %tr
+                %td FOOTER YEAH
+      %div.clearBoth

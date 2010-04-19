@@ -1,13 +1,11 @@
-#login-box
+#content-box
   +border-radius(10px)
   +relative
   :padding 25px 25px 
-  :width 50%
-  :min-height 50%
+  :width 100%
   :border 3px gray solid
 
-
-.loginPadding
+.contentBoxPadding
   +relative
   :margin 0
   :padding 50px

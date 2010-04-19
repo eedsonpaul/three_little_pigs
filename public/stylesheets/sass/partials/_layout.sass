@@ -1,3 +1,10 @@
+=relative
+  :position relative
+
+=absolute
+  :position absolute
+
+
 #page
   :margin 0 auto
   :padding 3em 0
@@ -5,12 +12,25 @@
   :min-width 600px
   :max-width 1200px
 
+  #header
+    clear: both
+    float: left
+    width: 100%
+    height: 100px
+
+  
 #wrapper
   :float left
   :width 100%
 
 #content
   :margin 0 0 0 200px
+
+.bar
+  +border-radius(10px)
+  +relative
+  :background url("/images/bg.png")
+  :width 100%
 
 #side
   :float left

@@ -1,14 +1,15 @@
-img
-  opacity: 0.5
-  filter: alpha(opacity=0.5)
+h3
+  .navi
+    opacity: 0.5
+    filter: alpha(opacity=0.5)
 
 #navigation-block
   +border-radius(10px)
-  position: relative
+  +relative
   background: url("/images/bg.png")
 
 #hide
-  position: absolute
+  +absolute
   top: 30px
   left: -190px
 
