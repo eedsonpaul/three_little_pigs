@@ -1,0 +1,43 @@
+img
+  border: none
+
+=rounded
+  :border-radius 5px  
+  :-moz-border-radius 5px  
+  :-webkit-border-radius 5px
+
+#header
+  margin: 6px 0
+  #logo
+    a
+      display: block
+      text-decoration: none
+      text-indent: -10000px
+      float: left
+      background:  url('/images/logo.png') no-repeat
+      &:hover
+  #main_menu
+    margin-top: 22px
+    background-image: url('/images/bg_head.png')
+    width: 100%
+    clear: both
+    
+.head_button
+  color: #fff
+  width: 100px
+    
+.head_button a
+    voice-family: "\"}\""; 
+  	voice-family: inherit;
+  	height: 50px;
+  text-decoration: none
+
+.head_button a:link, .head_button a:visited
+  display: block
+  background:  url('/images/button.png')
+  padding 8px 0 0 10px
+
+.head_button a:hover
+  background:  url('/images/button.png') 0 -50px
+  padding: 8px 0 0 10px
+     

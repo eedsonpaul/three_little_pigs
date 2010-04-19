@@ -1,0 +1,43 @@
+%head
+  %title percolait tracker
+  = render :partial => 'layouts/includes'
+
+#body
+  #page_effect
+    #page
+      #header
+        .headerPadding
+          %center
+            %h1.code#head_image
+              %span.fake-hover
+              %a{:href=> "/homepage"}
+        %div.clearBoth
+
+      #midpage
+        #wrapper
+          #content
+            .contentPadding
+              = yield
+        #side
+          .sidePadding
+            #navigation-block
+              %ul.code#sliding-navigation
+                %li.sliding-element
+                  %h3
+                    %a{:href => '/homepage'}
+                      %img{:src => '/images/buttons/home-blk.png'}
+                %li.sliding-element
+                  %h3
+                    %a{:href => '/login'}
+                      %img{:src => '/images/buttons/login.png'}
+                %li.sliding-element
+                  %h3
+                    %a{:href => '/#'}
+                      %img{:src => '/images/buttons/about.png'}
+
+        %div.clearBoth
+
+      #footer
+        .footerPadding
+          %p this should be in the footer
+        %div.clearBoth

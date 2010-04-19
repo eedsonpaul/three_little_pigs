@@ -1,0 +1,72 @@
+img
+  border: none
+
+body
+  background: #000
+
+
+=rounded
+  :border-radius 5px  
+  :-moz-border-radius 5px  
+  :-webkit-border-radius 5px
+
+=block
+  :float left
+  :width 100%
+  :clear both
+
+
+
+#wrap
+  :width 750px
+  :margin 0 auto
+
+  #main
+    +block
+    :margin 0 auto
+    :width 480px
+    :padding 10px
+
+  #sidebar
+    +rounded
+    :float right
+    :width 230px
+    :background url("/images/bg_head.png")
+    :padding 10px
+
+  #footer
+    clear: both
+
+
+
+
+#header
+  +block
+  margin: 0 auto
+  text-align: right
+  padding 2px
+
+  #main_menu
+    +rounded
+    background: url("/images/bg_head.png") repeat
+      
+  .head_button
+    +rounded
+    color: #FFF
+    background: url("/images/button.png")
+    width: 50px
+    padding: 1px
+    a
+      text-decoration: none
+      color: #FFF
+      &:hover
+        +rounded
+        color: #FFF
+        background: url("/images/button.png") 0 -50px
+        padding: 5px 0
+ 
+  #head_table
+    td, th
+      :padding 2px
+      :text-align right
+

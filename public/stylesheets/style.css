@@ -1,0 +1,100 @@
+#page {
+  margin: 0 auto;
+  padding: 3em 0;
+  width: 80%;
+  min-width: 600px;
+  max-width: 1200px; }
+
+#wrapper {
+  float: left;
+  width: 100%; }
+
+#content {
+  margin: 0 0 0 200px; }
+
+#side {
+  float: left;
+  width: 200px;
+  margin-left: -100%; }
+
+.headerPadding {
+  padding: 1em; }
+
+.contentPadding {
+  padding: 1em;
+  min-height: 450px; }
+
+.sidePadding {
+  padding: 1em 0.5em 1em 0.5em; }
+
+.footerPadding {
+  padding: 1em; }
+
+body {
+  margin: 0;
+  min-width: 550px;
+  background: black; }
+
+img {
+  border: none; }
+
+.clearBoth {
+  clear: both; }
+
+#header {
+  clear: both;
+  float: left;
+  width: 100%;
+  height: 100px; }
+
+#wrapper {
+  border-top-left-radius: 5px;
+  -moz-border-radius-topleft: 5px;
+  -webkit-border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  -moz-border-radius-topright: 5px;
+  -webkit-border-top-right-radius: 5px;
+  background: #FFF; }
+
+#footer {
+  border-bottom-right-radius: 5px;
+  -moz-border-radius-bottomright: 5px;
+  -webkit-border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  -moz-border-radius-bottomleft: 5px;
+  -webkit-border-bottom-left-radius: 5px;
+  background: url("/images/white-foot.png");
+  height: 100px; }
+
+#page_effect {
+  display: none; }
+
+#head_image {
+  margin: 0;
+  padding: 0;
+  text-indent: -9999px;
+  width: 425;
+  height: 100px;
+  position: relative;
+  margin-left: -1em;
+  background: url("/images/logo_wht.png") no-repeat; }
+  #head_image a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 425px;
+    height: 100px;
+    display: block;
+    border: 0;
+    background: transparent;
+    overflow: hidden; }
+  #head_image .fake-hover {
+    margin: 0;
+    padding: 0;
+    width: 425px;
+    height: 100px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url("/images/logo_wht.png") no-repeat 0 -100px; }

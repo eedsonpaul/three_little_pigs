@@ -1,0 +1,39 @@
+img
+  border: none
+
+=rounded
+  :border-radius 5px  
+  :-moz-border-radius 5px  
+  :-webkit-border-radius 5px
+
+=block
+  float: left
+  width: 98%
+  clear: both
+
+#header
+  +block
+  position: fixed
+  margin: 0 auto
+  text-align: right
+
+  #main_menu
+    +rounded
+    background: url("/images/bg_head.png") repeat
+      
+  .head_button
+    +rounded
+    color: #FFF
+    background: url("/images/button.png")
+    width: 50px
+    padding: 1px
+    a
+      text-decoration: none
+      color: #FFF
+
+      &:hover
+        +rounded
+        color: #FFF
+        background: url("/images/button.png") 0 -50px
+        padding: 5px 0
+
