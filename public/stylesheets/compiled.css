@@ -22,7 +22,7 @@
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   position: relative;
-  background: url("/images/bg.png");
+  background: #213e5b;
   width: 100%; }
 
 #side {
@@ -46,7 +46,7 @@
 body {
   margin: 0;
   min-width: 550px;
-  background: black; }
+  background: url("/images/backbg.png") repeat-x; }
 
 img {
   border: none; }
@@ -61,7 +61,7 @@ img {
   border-top-right-radius: 5px;
   -moz-border-radius-topright: 5px;
   -webkit-border-top-right-radius: 5px;
-  background: #FFF; }
+  background: #FFFFFF; }
 
 #footer {
   border-bottom-right-radius: 5px;
@@ -70,7 +70,7 @@ img {
   border-bottom-left-radius: 5px;
   -moz-border-radius-bottomleft: 5px;
   -webkit-border-bottom-left-radius: 5px;
-  background: #FFF; }
+  background: #FFFFFF; }
 
 #page_effect {
   display: none; }
@@ -115,7 +115,7 @@ h3 .navi {
   -moz-border-radius: 10px;
   -webkit-border-radius: 10px;
   position: relative;
-  background: url("/images/bg.png"); }
+  background: #213e5b; }
 
 #hide {
   position: absolute;
