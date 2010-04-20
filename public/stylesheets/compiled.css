@@ -144,7 +144,7 @@ ul#sliding-navigation {
   padding: 25px 25px;
   width: 50%;
   min-height: 50%;
-  border: 3px gray solid; }
+  border: 3px #213e5b solid; }
 
 .loginPadding {
   position: relative;
@@ -160,10 +160,10 @@ ul#sliding-navigation {
   padding: 25px 25px;
   min-width: 50%;
   min-height: 50%;
-  border: 3px gray solid; }
+  border: 3px #213e5b solid; }
 
-.loginPadding {
+.contentBoxPadding {
   position: relative;
   margin: 0;
-  padding: 50px;
+  padding: 5px;
   display: block; }
