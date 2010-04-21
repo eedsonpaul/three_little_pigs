@@ -15,22 +15,15 @@
       #wrapper
         #content
           .contentPadding
-            .bar
-              %br
             #page_effect
               = yield
       #side
         .sidePadding
           = render :partial => 'homepage/sidebar'
           
-      
       %div.clearBoth
 
+  .hide
     #footer
-      .footerPadding
-        .bar
-          %center
-            %table
-              %tr
-                %td FOOTER YEAH
-      %div.clearBoth
+      %center
+        %p this is the footer

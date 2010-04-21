@@ -21,6 +21,17 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $(".hide").each(function() {
+        $(this).hover(function() {
+            $(this).stop().animate({ opacity: 1.0 }, 500);
+        },
+       function() {
+           $(this).stop().animate({ opacity: 0.0 }, 500);
+       });
+    });
+});
+
 $(document).ready(function(){
   $(document).ready(function () {
     $('#page_effect').fadeIn(1500);
