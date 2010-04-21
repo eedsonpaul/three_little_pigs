@@ -2,10 +2,12 @@
 %center
   #login-box
     .loginPadding
-      %table
-        %tr
-          %td
-            %h2 Please Login
-        %tr
-          %td
-            %p= link_to image_tag("/images/buttons/twit.png")
+      -form_for(@user) do |f|
+        %table
+          %tr
+            %td
+              %h2 Please Login
+          %tr
+            %td
+              %p
+                = f.submit "Sign in with twitter"
