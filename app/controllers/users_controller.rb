@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+
   def create
     oauth.set_callback_url(callback_url)
     session['rtoken']  = oauth.request_token.token

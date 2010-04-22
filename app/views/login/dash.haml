@@ -1,0 +1,16 @@
+%h1 WELCOME
+%br/
+
+- @users.each do |user|
+	%h3= user.screen_name
+	- session[:token] = nil
+	- session[:token] = PivotalTracker::Client.token = user.token
+	- @projects = PivotalTracker::Project.all
+	- @projects.each do |project|
+		%p= project.name
+		- project.stories.all.each do |story|
+			%p= story.name
+
+%br/
+= link_to 'Logout', logout_path
+

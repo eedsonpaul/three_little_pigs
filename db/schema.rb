@@ -14,6 +14,7 @@ ActiveRecord::Schema.define(:version => 20100421041736) do
   create_table "users", :force => true do |t|
     t.string   "screen_name"
     t.string   "twitter_id"
+    t.string   "token"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

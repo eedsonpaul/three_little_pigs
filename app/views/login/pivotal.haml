@@ -1,0 +1,14 @@
+- form_tag :action => 'pivotal' do
+	= flash[:message]
+	= flash[:warning]
+	
+	%h3 Login
+
+	API Token
+	%br/
+	= text_field :users, :token
+	%br/
+
+	= submit_tag 'Login'
+	%br/
+
