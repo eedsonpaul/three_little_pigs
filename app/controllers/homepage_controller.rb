@@ -1,6 +1,7 @@
 class HomepageController < ApplicationController
   
   def index
+    redirect_to dash_path if session[:token]
   end
 
   def pivotal

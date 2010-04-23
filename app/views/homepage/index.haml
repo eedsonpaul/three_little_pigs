@@ -5,23 +5,19 @@
       - @user = User.find(session[:user])
       = @user.screen_name + '.'
       
-      - if session[:token]
-        =redirect_to dash_path
+      - form_tag :action => 'pivotal' do
+        = flash[:message]
+        = flash[:warning]
 
-      - else
-        - form_tag :action => 'pivotal' do
-          = flash[:message]
-          = flash[:warning]
-
-          %br
-          %table
-            %tr
-              %th Connect to Pivotal Tracker!
-            %tr
-              %td Please input your API Token:
-              %td= text_field :users, :token
-              %td= submit_tag 'Submit'
         %br
+        %table
+          %tr
+            %th Connect to Pivotal Tracker!
+          %tr
+            %td Please input your API Token:
+            %td= text_field :users, :token
+            %td= submit_tag 'Submit'
+      %br
         
     - else
       %h3 This is not the final content of this homepage.
