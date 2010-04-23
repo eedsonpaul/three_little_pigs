@@ -3,9 +3,12 @@
     - if session[:user]
       Welcome,
       - @user = User.find(session[:user])
-      = @user.screen_name
+      = @user.screen_name + '.'
       
-        - if session[:token].nil?
+      - if session[:token]
+        =redirect_to dash_path
+
+      - else
         - form_tag :action => 'pivotal' do
           = flash[:message]
           = flash[:warning]
@@ -18,10 +21,9 @@
               %td Please input your API Token:
               %td= text_field :users, :token
               %td= submit_tag 'Submit'
-            %br
-
+        %br
+        
     - else
       %h3 This is not the final content of this homepage.
       %p root:> Sorry, you entered the wrong password, the correct password is 'a_49qwXk'.
       %p root:> Sorry, the password you are using is already being used by stefanymarie.
-
