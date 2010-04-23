@@ -23,7 +23,7 @@ class LoginController < ApplicationController
     end
     
     if @user
-      redirect_to pivotal_path
+      redirect_to root_path
     else
       flash[:notice] = "Signing in failed"
     end

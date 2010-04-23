@@ -1,14 +1,35 @@
 #navigation-block
-  %ul.code#sliding-navigation
-    %li.sliding-element
-      %h3.navi
-        = link_to image_tag("/images/buttons/home.png"), root_url
-    %li.sliding-element
-      %h3.navi
-        = link_to image_tag("/images/buttons/dash.png"), root_url
-    %li.sliding-element
-      %h3.navi
-        = link_to image_tag("/images/buttons/login.png"), login_index_url
-    %li.sliding-element
-      %h3.navi
-        = link_to image_tag("/images/buttons/about.png"), '#'
+  - if session[:user]
+    %ul.code#sliding-navigation
+      %li.sliding-element
+        %div.accordion
+          %h3.navi
+            %a{:style => "cursor:pointer"} Views
+          %div
+            %p= link_to "My Projects"
+            %p= link_to "My Stories"
+            %p= link_to "All Member"
+            %p= link_to "All Member Projects"
+
+      %li.sliding-element
+        %h3.navi
+          = link_to image_tag("/images/buttons/logout.png"), logout_path
+
+
+  - else
+
+
+    %ul.code#sliding-navigation
+      %li.sliding-element
+        %div.accordion
+          %h3.navi
+            %a
+              %img{:src => "/images/buttons/login.png", :style => "cursor:pointer"}
+          %div
+            -form_tag(users_path) do
+              %center
+                %p= image_submit_tag "/images/buttons/twit.png"
+
+      %li.sliding-element
+        %h3.navi
+          = link_to image_tag("/images/buttons/about.png"), '#'

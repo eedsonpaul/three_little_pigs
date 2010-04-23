@@ -1,23 +1,27 @@
-// ako plan kay if session[:user] kay naa, ang homepage nlng ako i-change..
-
-
-//when not logged in
-%br
-
 #content-box
   .contentBoxPadding
-    %h3 This is not the final content of this homepage.
-    %p C isn't that hard: void (*(*f[])())() defines f as an array of unspecified size, of pointers to functions that return pointers to functions that return void.
-    %p root:> Sorry, you entered the wrong password, the correct password is 'a_49qwXk'.
-    %p root:> Sorry, the password you are using is already being used by stefanymarie.
-    %p You have successfully logged in. Press any key to log-out.
-    %p Press any key to continue or any other key to quit.
-    %p Error. Keyboard not attached. Press F1 to continue.
-    %p Roses are #FF0000 , Violets are #0000FF.
+    - if session[:user]
+      Welcome,
+      - @user = User.find(session[:user])
+      = @user.screen_name
+      
+        - if session[:token].nil?
+        - form_tag :action => 'pivotal' do
+          = flash[:message]
+          = flash[:warning]
 
-//when logged in
-%h2 Welcome, stefanymarie!
+          %br
+          %table
+            %tr
+              %th Connect to Pivotal Tracker!
+            %tr
+              %td Please input your API Token:
+              %td= text_field :users, :token
+              %td= submit_tag 'Submit'
+            %br
 
-#content-box
-  .contentBoxPadding
-    %h3 This is not the final content of this dashboard. 
+    - else
+      %h3 This is not the final content of this homepage.
+      %p root:> Sorry, you entered the wrong password, the correct password is 'a_49qwXk'.
+      %p root:> Sorry, the password you are using is already being used by stefanymarie.
+
