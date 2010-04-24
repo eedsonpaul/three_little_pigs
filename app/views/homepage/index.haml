@@ -10,13 +10,15 @@
         = flash[:warning]
 
         %br
-        %table
-          %tr
-            %th Connect to Pivotal Tracker!
-          %tr
-            %td Please input your API Token:
-            %td= text_field :users, :token
-            %td= submit_tag 'Submit'
+        %center
+          %table
+            %tr
+              %th{:colspan => '2'} Connect to Pivotal Tracker!
+            %tr
+              %td Please input your API Token:
+              %td= text_field :users, :token
+            %tr
+              %td{:colspan => '2', :align => 'right'}= submit_tag 'Submit', :class => 'ui-button'
       %br
         
     - else

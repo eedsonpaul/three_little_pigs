@@ -1,15 +1,37 @@
+//dear person reading this, sorry kas kaayo og mga linya akong code. *bow* 
+
+
 %head
   %title percolait tracker
   = render :partial => 'layouts/includes'
 
 #body
+  - if session[:user]
+    #head-board
+      %p
+        Put your mind on Percolait. Welcome,
+        - @user = User.find(session[:user])
+        = @user.screen_name + '.'
+        = link_to "| dashboard |", dash_path
+        = link_to "| account |", '#'
+        = link_to "| settings |", '#'
+        = link_to "| log-out |", logout_path
+
   #page
-    #header
-      .headerPadding
-        %h1.code#head_image
-          %span.fake-hover
-          = link_to 'home', root_url
-      %div.clearBoth
+    - if session[:user]
+      #header2
+        .headerPadding
+          %h1.code#head_image
+            %span.fake-hover
+            = link_to 'home', root_url
+        %div.clearBoth
+    - else
+      #header
+        .headerPadding
+          %h1.code#head_image
+            %span.fake-hover
+            = link_to 'home', root_url
+        %div.clearBoth
 
     #midpage
       #wrapper
@@ -20,7 +42,7 @@
       #side
         .sidePadding
           = render :partial => 'homepage/sidebar'
-          
+        
       %div.clearBoth
 
   .hide

@@ -4,16 +4,22 @@
       %li.sliding-element
         %div.accordion
           %h3.navi
-            %a{:style => "cursor:pointer"} Views
+            %a.pointer Views.
           %div
-            %p= link_to "My Projects"
-            %p= link_to "My Stories"
-            %p= link_to "All Member"
-            %p= link_to "All Member Projects"
+            %center
+              %p= link_to "My Projects."
+              %p= link_to "My Stories."
+              %p= link_to "All Members."
+              %p= link_to "All Projects."
 
       %li.sliding-element
-        %h3.navi
-          = link_to image_tag("/images/buttons/logout.png"), logout_path
+        %div.accordion
+          %h3.navi
+            %a.pointer Actions.
+          %div
+            %center
+              %p= link_to "Add Story."
+              %p= link_to "Delete Story."
 
 
   - else
@@ -23,8 +29,7 @@
       %li.sliding-element
         %div.accordion
           %h3.navi
-            %a
-              %img{:src => "/images/buttons/login.png", :style => "cursor:pointer"}
+            %a.pointer Log-in.
           %div
             -form_tag(users_path) do
               %center
@@ -32,4 +37,4 @@
 
       %li.sliding-element
         %h3.navi
-          = link_to image_tag("/images/buttons/about.png"), '#'
+          = link_to "About.", '#'

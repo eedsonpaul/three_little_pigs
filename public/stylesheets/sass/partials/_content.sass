@@ -1,14 +1,32 @@
 #content-box
   +border-radius(20px)
   +relative
-  :padding 25px 25px 
+  :padding 20px
   :min-width 50%
   :min-height 50%
-  :border 3px #3982b6 solid
+  :border 3px #D6DFC9 solid
+
+  #table-container
+    ul
+      +relative
+      li
+        +border-radius(20px)
+        :float left
+        :width 100%
+        :padding 0
+        :margin 5px 0
+        :display inline
+
+      .block
+        :height 355px
+        :font-size 1em
+        :margin-right 10px
+        :padding 5px
+
 
 
 .contentBoxPadding
   +relative
-  :margin 0
+  +margin-auto
   :padding 5px
   :display block

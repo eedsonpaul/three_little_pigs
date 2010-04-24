@@ -1,7 +1,21 @@
 body
   margin: 0
   min-width: 550px
-  background: url("/images/backbg.png") repeat-x
+  background: #648E9D url("/images/backbg.png") repeat-x
+  :font-family Helvetica, sans-serif
+
+h3
+  :font-size 18
+
+h4
+  :font-size 16
+
+h5
+  :font-size 14
+
+p
+  :font-size 12
+  :color #FFFFFF
 
 img
   border: none
@@ -9,14 +23,29 @@ img
 .clearBoth
   clear: both
 
+a
+  :color #e6e8f1
+  :text-decoration none
+
+#head-board
+  :background url("/images/board.png")
+  :text-align right
+
+#header
+  +border-radius-top(20px)
+  :background 	#D6DFC9
+
+#header2
+  :background 	#D6DFC9
+
 #wrapper
-  +border-radius(20px)
-  :background #FFFFFF
+  +border-radius-bottom(20px)
+  :background 	#648E9D
 
 #footer
   :background url("/images/footer.png")
   :opacity 0.8
-  :color #FFFFFF
+  :color 	#FFFFFF
   :text-align center
 
 #page_effect
@@ -54,3 +83,19 @@ img
     top: 0
     left: 0
     background: url("/images/logo_wht.png") no-repeat 0 -100px
+
+.table-scaffold table
+  :border 2px solid
+  tr, td
+    :cellpadding 1px
+    :cellspacing 2px
+
+  .odd
+    :background gray
+
+  .even
+    :background yellow
+
+.pointer
+  :cursor pointer
+    

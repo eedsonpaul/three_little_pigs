@@ -1,6 +1,7 @@
 :javascript
   $(document).ready(function() {
       $(".table-1").tableDnD();
+
   });
 
 
@@ -8,15 +9,19 @@
   %table
     %tr
       %th= user.screen_name
-    - session[:token] = nil
-    - session[:token] = PivotalTracker::Client.token = user.token
-    - @projects = PivotalTracker::Project.all
-    - @projects.each do |project|
-      %tr
-        %td= project.name
-      %tr
-        %td
-          %table.table-1
-            - project.stories.all.each do |story|
-              %tr
-                %td= story.name
+    %tr
+      %td
+        %div
+          - session[:token] = nil
+          - session[:token] = PivotalTracker::Client.token = user.token
+          - @projects = PivotalTracker::Project.all
+          - @projects.each do |project|
+            %div
+              = project.name
+            %div
+              %p
+                .table-scaffolding
+                  %table.table-1
+                    - project.stories.all.each do |story|
+                      %tr{:class => cycle('even', 'odd')}
+                        %td= story.name
