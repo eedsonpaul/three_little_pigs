@@ -1,7 +1,11 @@
+!bgcolor = #648E9D
+!hcolor = #D6DFC9
+
+
 body
   margin: 0
   min-width: 550px
-  background: #648E9D url("/images/backbg.png") repeat-x
+  background = !bgcolor url("/images/backbg.png") repeat-x
   :font-family Helvetica, sans-serif
 
 h3
@@ -33,14 +37,14 @@ a
 
 #header
   +border-radius-top(20px)
-  :background 	#D6DFC9
+  background = !hcolor
 
 #header2
-  :background 	#D6DFC9
+  background = !hcolor
 
 #wrapper
   +border-radius-bottom(20px)
-  :background 	#648E9D
+  background = !bgcolor
 
 #footer
   :background url("/images/footer.png")
@@ -91,10 +95,9 @@ a
     :cellspacing 2px
 
   .odd
-    :background gray
+    :background silver
 
   .even
-    :background yellow
 
 .pointer
   :cursor pointer
