@@ -40,6 +40,7 @@ class LoginController < ApplicationController
   
   def logout
   	session[:user] = nil
+  	session[:token] = nil
   	session[:atoken] = session[:asecret] = nil
   	session['rtoken'] = session['rsecret'] = nil
   	redirect_to root_path
