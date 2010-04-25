@@ -22,10 +22,10 @@
 							- if p.innerHTML != nil
 								%h3.pointer= p.at('name').innerHTML
 								- project_id = p.at('id').innerHTML
-								- story_uri = URI.parse("http://www.pivotaltracker.com/services/v3/projects/#{project_id}/stories")
+								- story_uri = URI.parse("http://www.pivotaltracker.com/services/v3/projects/#{project_id}/iterations/current")
 								- story_response = Net::HTTP.start(story_uri.host, story_uri.port) do |http|
 									- http.get(story_uri.path, {'X-TrackerToken' => session[:token]})
-								-story_doc = Hpricot(story_response.body).at('stories')
+								-story_doc = Hpricot(story_response.body).at('iteration')
 								-stories = (story_doc/'story')
 								%div.limiter
 									%p

@@ -36,12 +36,10 @@ class LoginController < ApplicationController
   
   def dash
 	  @users = User.all
-	  #@projects  = PivotalTracker::Project.all
   end
   
   def logout
   	session[:user] = nil
-  	session[:token] = nil
   	session[:atoken] = session[:asecret] = nil
   	session['rtoken'] = session['rsecret'] = nil
   	redirect_to root_path
