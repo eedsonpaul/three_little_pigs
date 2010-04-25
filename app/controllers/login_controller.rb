@@ -1,5 +1,10 @@
 class LoginController < ApplicationController
 
+	require 'hpricot'
+	require 'net/http'
+	require 'uri'
+	require 'rubygems'
+	
   def index
     @user = User.new
   end
