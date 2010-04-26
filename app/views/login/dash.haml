@@ -2,7 +2,7 @@
 	$(document).ready(function() {
 	$(".table-1").tableDnD();
 	});
-
+	
 - @users.each do |user|
 	#table-container
 		%table
@@ -12,26 +12,20 @@
 				%td
 					%div.accordion
 						- session[:token] = user.token
-						- logger.info(session[:token])
-						- project_uri = URI.parse("http://www.pivotaltracker.com/services/v3/projects")
-						- project_response = Net::HTTP.start(project_uri.host, project_uri.port) do |http|
-							-http.get(project_uri.path, {'X-TrackerToken' => session[:token]})
-						- project_doc = Hpricot(project_response.body).at('projects')
-						- projects = (project_doc/'project') 
-						- projects.each do |p|
+						- project_uri = URI.parse("#{@base_url}")
+						- project_doc= Login.net_http(project_uri, session[:token], 'projects')
+						- (project_doc/'project').each do |p|
 							- if p.innerHTML != nil
 								%h3.pointer= p.at('name').innerHTML
 								- project_id = p.at('id').innerHTML
-								- story_uri = URI.parse("http://www.pivotaltracker.com/services/v3/projects/#{project_id}/iterations/current")
-								- story_response = Net::HTTP.start(story_uri.host, story_uri.port) do |http|
-									- http.get(story_uri.path, {'X-TrackerToken' => session[:token]})
-								-story_doc = Hpricot(story_response.body).at('iteration')
-								-stories = (story_doc/'story')
+								
+								- story_uri = URI.parse("#{@base_url}/#{project_id}/iterations/current")
+								- story_doc = Login.net_http(story_uri, session[:token], 'stories')
 								%div.limiter
 									%p
 										.table-scaffold
 											%table.table-1
-												- stories.each do |s|
+												- (story_doc/'story').each do |s|
 													- if s.innerHTML != nil
 														%tr{:class => cycle('even', 'odd')}
 															%td= s.at('name').innerHTML

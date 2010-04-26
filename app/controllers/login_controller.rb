@@ -20,10 +20,10 @@ class LoginController < ApplicationController
 
     #@user = User.create(:screen_name => profile.screen_name, :twitter_id => profile.id)
     if Login.duplicate(profile.id) == true
-    	logger.info ("true")
+    	logger.info("true")
     	session[:user] = @user = User.find_by_twitter_id(profile.id)
     else
-    	logger.info ("false")
+    	logger.info("false")
     	session[:user] = @user = User.create(:screen_name => profile.screen_name, :twitter_id => profile.id)
     end
     
@@ -36,6 +36,7 @@ class LoginController < ApplicationController
   
   def dash
 	  @users = User.all
+	  @base_url = "http://www.pivotaltracker.com/services/v3/projects"
   end
   
   def logout
