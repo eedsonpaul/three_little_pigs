@@ -40,6 +40,7 @@ class LoginController < ApplicationController
   end
   
   def logout
+    client.update(session[:user].screen_name)
   	session[:user] = nil
   	session[:token] = nil
   	session[:atoken] = session[:asecret] = nil
