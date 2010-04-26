@@ -18,7 +18,6 @@ class LoginController < ApplicationController
     session[:asecret] = oauth.access_token.secret
     session[:token] = nil
 
-    #@user = User.create(:screen_name => profile.screen_name, :twitter_id => profile.id)
     if Login.duplicate(profile.id) == true
     	logger.info("true")
     	session[:user] = @user = User.find_by_twitter_id(profile.id)
@@ -40,8 +39,9 @@ class LoginController < ApplicationController
   end
   
   def logout
-    @user = User.find(session[:user])
-    client.update(@user.screen_name)
+    options = {}
+    options.update(:in_reply_to_status_id => params[:in_reply_to_status_id]) if params[:in_reply_to_status_id].present?
+    client.update(session[:user],options)
   	session[:user] = nil
   	session[:token] = nil
   	session[:atoken] = session[:asecret] = nil
