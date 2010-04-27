@@ -39,9 +39,6 @@ class LoginController < ApplicationController
   end
   
   def logout
-    options = {}
-    options.update(:in_reply_to_status_id => params[:in_reply_to_status_id]) if params[:in_reply_to_status_id].present?
-    client.update(session[:user],options)
   	session[:user] = nil
   	session[:token] = nil
   	session[:atoken] = session[:asecret] = nil

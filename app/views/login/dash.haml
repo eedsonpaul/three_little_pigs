@@ -1,7 +1,3 @@
-:javascript
-$(document).ready(function() {
-jQuery('.accordable').accordion()
-});
 
 //*****floating menu *inspired by tumblr :D*
 //*************************************************
@@ -35,11 +31,32 @@ jQuery('.accordable').accordion()
 					%tbody
 						%tr
 							- session[:token] = session[:user].token
-							- @labels = Login.labelled(session[:token])[1]
+							- return_val = Login.labelled(session[:token])
+							- @labels = return_val[1]
+							- @project_xmls = return_val[0]
 							- @labels.each do |label|
 								%td{:style => "vertical-align:top"}
 									%p.ui-widget-header
 										= label
-										
-										
-										
+										%br
+										%table
+											%td
+												- @project_xmls.each do |x|
+													%tr= x.at('name').innerHTML
+													%br
+													- project_id = x.at('id').innerHTML
+													- story_uri = URI.parse("#{@base_url}/#{project_id}/stories")
+													- story_doc = Login.net_http(story_uri, session[:token], 'stories')
+													- (story_doc/'story').each do |s|
+														- if s.innerHTML != nil
+															- if s.at('labels')
+																- if s.at('labels').innerHTML == label
+																	%tr= s.at('name').innerHTML
+																	%br
+															- else 
+																- if label == "Other Activities"
+																	%tr= s.at('name').innerHTML
+																	%br
+
+										 	
+										 	

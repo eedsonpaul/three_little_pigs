@@ -29,13 +29,12 @@ class Login < ActiveRecord::Base
 	
 	def self.labelled(token)
 	  @base_url = "http://www.pivotaltracker.com/services/v3/projects"
-	  i = j = 0
 	  project_uri = URI.parse("#{@base_url}")
 	  project_doc= Login.net_http(project_uri, token, 'projects')
-		@project_xml = []
+		@project_xmls = []
 		@labels = []
 		(project_doc/'project').each do |p|
-				@project_xml << p
+				@project_xmls << p
 				project_id = p.at('id').innerHTML
 				story_uri = URI.parse("#{@base_url}/#{project_id}/stories")
 				story_doc = Login.net_http(story_uri, token, 'stories')
@@ -53,6 +52,7 @@ class Login < ActiveRecord::Base
 					end
 				end
 			end
-		@return_val = [@project_xml,@labels]
+		@return_val = [@project_xmls,@labels]
 	end
+	
 end
