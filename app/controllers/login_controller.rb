@@ -27,7 +27,7 @@ class LoginController < ApplicationController
     end
     
     if @user
-      redirect_to root_path
+      redirect_to home_path
     else
       flash[:notice] = "Signing in failed"
     end
@@ -46,7 +46,7 @@ class LoginController < ApplicationController
   	session[:token] = nil
   	session[:atoken] = session[:asecret] = nil
   	session['rtoken'] = session['rsecret'] = nil
-  	redirect_to root_path
+  	redirect_to home_path
   end
 
 end

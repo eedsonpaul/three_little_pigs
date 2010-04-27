@@ -35,20 +35,11 @@ jQuery('.accordable').accordion()
 					%tbody
 						%tr
 							- session[:token] = session[:user].token
-							- project_uri = URI.parse("#{@base_url}")
-							- project_doc= Login.net_http(project_uri, session[:token], 'projects')
-							- (project_doc/'project').each do |p|
-								- if p.innerHTML != nil
-									-project_id = p.at('id').innerHTML
-									- story_uri = URI.parse("#{@base_url}/#{project_id}/iterations/current")
-									- story_doc = Login.net_http(story_uri, session[:token], 'stories')
-									- (story_doc/'story').each do |s|
-										- if s.innerHTML != nil
-											- if s.at('labels')
-												%td{:style => "vertical-align:top"}
-													%p.ui-widget-header
-														= s.at('labels').innerHTML
-											- else
-												%td{:style => "vertical-align:top"}
-													%p.ui-widget-header
-														= "others"
+							- @labels = Login.labelled(session[:token])[1]
+							- @labels.each do |label|
+								%td{:style => "vertical-align:top"}
+									%p.ui-widget-header
+										= label
+										
+										
+										

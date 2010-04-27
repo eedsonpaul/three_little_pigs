@@ -5,6 +5,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
   map.root :controller => 'homepage'
+  map.home '/home', :controller => 'homepage', :action => 'home'
   map.callback '/callback', :controller => 'login', :action => 'callback' 
   map.logout '/logout', :controller => 'login', :action => 'logout'
   map.dash '/dash', :controller => 'login', :action => 'dash'

@@ -1,9 +1,14 @@
 class HomepageController < ApplicationController
   
   def index
-    redirect_to dash_path if session[:token]
+  	session[:token] = session[:user]  = nil
+  	redirect_to home_path
   end
 
+	def home
+    redirect_to dash_path if session[:token]
+	end
+	
   def pivotal
   	@user = session[:user]
   	if request.post?
@@ -11,7 +16,7 @@ class HomepageController < ApplicationController
 		  	logger.info ("true")
 		  	if @user.token == params[:users][:token]
 		  		redirect_to dash_path
-		  	else redirect_to root_path
+		  	else redirect_to home_path
 		  	end
 		  else
 		  	logger.info ("false")
