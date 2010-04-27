@@ -1,6 +1,9 @@
 //dear person reading this, sorry kas kaayo og mga linya akong code. *bow* 
 
 
+//*****this page is the lay-out being used for all the pages
+//***********************************************************
+
 %head
   %title percolait tracker
   = render :partial => 'layouts/includes'
@@ -13,8 +16,10 @@
         - @user = User.find(session[:user])
         = @user.screen_name + '.'
         = link_to "| dashboard |", dash_path
+        = link_to "| actions |", '#'
         = link_to "| account |", '#'
         = link_to "| settings |", '#'
+        = link_to "| help |", '#'
         = link_to "| log-out |", logout_path
 
   #page
@@ -25,6 +30,7 @@
             %span.fake-hover
             = link_to 'home', root_url
         %div.clearBoth
+
     - else
       #header
         .headerPadding
@@ -33,15 +39,24 @@
             = link_to 'home', root_url
         %div.clearBoth
 
+
     #midpage
-      #wrapper
-        #content
-          .contentPadding
-            #page_effect
-              = yield
-      #side
-        .sidePadding
-          = render :partial => 'homepage/sidebar'
+      - if session[:user].nil?
+        #wrapper
+          #content
+            .contentPadding
+              #page_effect
+                = yield
+        #side
+          .sidePadding
+            = render :partial => 'homepage/sidebar'
+
+      - else
+        #wrapper
+          #content2
+            .contentPadding
+              #page_effect
+                = yield
         
       %div.clearBoth
 

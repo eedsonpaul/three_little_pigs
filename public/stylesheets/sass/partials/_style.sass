@@ -1,21 +1,27 @@
 !bgcolor = #648E9D
 !hcolor = #D6DFC9
+!headbg = url("/images/headbg.png")
 
 
+//*************others and stuff*************//
 body
   margin: 0
   min-width: 550px
-  background = !bgcolor url("/images/backbg.png") repeat-x
+  background = !bgcolor url("/images/backbg.png") "repeat-x"
   :font-family Helvetica, sans-serif
 
 h3
-  :font-size 18
+  :font-size 18px
 
 h4
-  :font-size 16
+  :font-size 16px
 
 h5
-  :font-size 14
+  :font-size 14px
+
+h7
+  :font-size 10px
+  :color #FFFFFF
 
 p
   :font-size 12
@@ -31,16 +37,19 @@ a
   :color #e6e8f1
   :text-decoration none
 
+
+
+//*************styles for lay-out*************//
 #head-board
   :background url("/images/board.png")
   :text-align right
 
 #header
   +border-radius-top(20px)
-  background = !hcolor
+  background = !headbg
 
 #header2
-  background = !hcolor
+  background = !headbg
 
 #wrapper
   +border-radius-bottom(20px)
@@ -88,17 +97,13 @@ a
     left: 0
     background: url("/images/logo_wht.png") no-repeat 0 -100px
 
-.table-scaffold table
-  :border 2px solid
-  tr, td
-    :cellpadding 1px
-    :cellspacing 2px
 
-  .odd
-    :background silver
 
-  .even
-
+//*************classes*************//
 .pointer
   :cursor pointer
-    
+
+.limiter
+  :width 270px
+  :height 300px
+  :overflow auto

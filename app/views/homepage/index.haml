@@ -1,10 +1,11 @@
+
+//*****if session[:user][:token] or something is present, redirect_to dash_path
+//******************************************************************************
+
 #content-box
   .contentBoxPadding
     - if session[:user]
-      Welcome,
       - @user = User.find(session[:user])
-      = @user.screen_name + '.'
-      
       - form_tag :action => 'pivotal' do
         = flash[:message]
         = flash[:warning]
@@ -12,13 +13,21 @@
         %br
         %center
           %table
-            %tr
-              %th{:colspan => '2'} Connect to Pivotal Tracker!
-            %tr
-              %td Please input your API Token:
-              %td= text_field :users, :token
-            %tr
-              %td{:colspan => '2', :align => 'right'}= submit_tag 'Submit', :class => 'ui-button'
+            %thead
+              %tr
+                %th{:colspan => '2'}
+                  Ahoy! Ahoy,
+                  = @user.screen_name + '.'
+                  Connect with Pivotal Tracker right now!
+            %tbody
+              %tr
+                %td Please input your API Token:
+                %td= text_field :users, :token
+                %td{:align => 'left'}= submit_tag 'Submit', :class => 'ui-button'
+            %tfoot
+              %tr
+                %td{:colspan => '2', :align => 'center'}
+                  %h7 Input your Pivotal Tracker API token before proceeding. Thank you.
       %br
         
     - else

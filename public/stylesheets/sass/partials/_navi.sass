@@ -1,20 +1,15 @@
 #navigation-block
   :color #e6e8f1
 
-h3
-  .navi
-    :opacity 0.5
-    :filter alpha(opacity=0.5)
+  h3
+    .navi
+      :opacity 0.5
+      :filter alpha(opacity=0.5)
 
 #navigation-block
   +border-radius(20px)
   +relative
-  :border-left 3px #D6DFC9 dashed
-
-#hide
-  +absolute
-  :top 30px
-  :left -190px
+  :border-left = !hcolor 3px "dashed"
 
 ul#sliding-navigation
   :list-style none

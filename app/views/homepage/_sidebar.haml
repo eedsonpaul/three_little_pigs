@@ -1,40 +1,17 @@
+//*****this only appears if session[:user].nil?
+//**********************************************
+
 #navigation-block
-  - if session[:user]
-    %ul.code#sliding-navigation
-      %li.sliding-element
-        %div.accordion
-          %h3.navi
-            %a.pointer Views.
-          %div
-            %center
-              %p= link_to "My Projects."
-              %p= link_to "My Stories."
-              %p= link_to "All Members."
-              %p= link_to "All Projects."
-
-      %li.sliding-element
-        %div.accordion
-          %h3.navi
-            %a.pointer Actions.
-          %div
-            %center
-              %p= link_to "Add Story."
-              %p= link_to "Delete Story."
-
-
-  - else
-
-
-    %ul.code#sliding-navigation
-      %li.sliding-element
-        %div.accordion
-          %h3.navi
-            %a.pointer Log-in.
-          %div
-            -form_tag(users_path) do
-              %center
-                %p= image_submit_tag "/images/buttons/twit.png"
-
-      %li.sliding-element
+  %ul.code#sliding-navigation
+    %li.sliding-element
+      %div.accordion
         %h3.navi
-          = link_to "About.", '#'
+          %a.pointer Log-in.
+        %div
+          -form_tag(users_path) do
+            %center
+              %p= image_submit_tag "/images/buttons/twit.png"
+
+    %li.sliding-element
+      %h3.navi
+        = link_to "About.", '#'

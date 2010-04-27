@@ -1,32 +1,48 @@
 :javascript
-	$(document).ready(function() {
-	$(".table-1").tableDnD();
-	});
-	
-- @users.each do |user|
-	#table-container
-		%table
-			%tr
-				%th= user.screen_name
-			%tr
-				%td
-					%div.accordion
-						- session[:token] = user.token
-						- project_uri = URI.parse("#{@base_url}")
-						- project_doc= Login.net_http(project_uri, session[:token], 'projects')
-						- (project_doc/'project').each do |p|
-							- if p.innerHTML != nil
-								%h3.pointer= p.at('name').innerHTML
-								- project_id = p.at('id').innerHTML
-								
-								- story_uri = URI.parse("#{@base_url}/#{project_id}/iterations/current")
-								- story_doc = Login.net_http(story_uri, session[:token], 'stories')
-								%div.limiter
-									%p
-										.table-scaffold
-											%table.table-1
-												- (story_doc/'story').each do |s|
-													- if s.innerHTML != nil
-														%tr{:class => cycle('even', 'odd')}
-															%td= s.at('name').innerHTML
+  $(document).ready(function() {
+    jQuery('.accordable').accordion()
+  });
 
+//*****floating menu *inspired by tumblr japon :D*
+//*************************************************
+%div.code#nav
+  %ul
+    %li
+      %a.top{:href => "#top" }
+        %img{:src => "/images/buttons/top.png" }
+    %li
+      %a.bottom{:href => "#bottom"}
+        %img{:src => "/images/buttons/bottom.png" }
+
+
+
+//*****tables for each user
+//**************************
+- @users.each do |user|
+  #table-container
+    %table
+      %thead
+        %tr
+          %td= user.screen_name
+      %tbody
+        %tr
+          %td
+            %div.accordable.ui-accordion.ui-widget.ui-helper-reset
+              - session[:token] = user.token
+              - project_uri = URI.parse("#{@base_url}")
+              - project_doc= Login.net_http(project_uri, session[:token], 'projects')
+              - (project_doc/'project').each do |p|
+                - if p.innerHTML != nil
+                  %h3.pointer.ui-accordion-header.ui-helper-reset.ui-state-active.ui-corner-top
+                  %span.ui-icon.ui-icon-triangle-1-s
+                  %a{href="#"}= p.at('name').innerHTML
+                  - project_id = p.at('id').innerHTML
+                  - story_uri = URI.parse("#{@base_url}/#{project_id}/iterations/current")
+                  - story_doc = Login.net_http(story_uri, session[:token], 'stories')
+                  %div.limiter.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
+                    %p
+                      %ul
+                        - (story_doc/'story').each do |s|
+                          - if s.innerHTML != nil
+                            %li= s.at('name').innerHTML
+      %tfoot
