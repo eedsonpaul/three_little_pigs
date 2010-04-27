@@ -1,0 +1,5 @@
+compass --version '>= 0.8.17'
+haml
+will_paginate
+pivotal-tracker
+twitter
