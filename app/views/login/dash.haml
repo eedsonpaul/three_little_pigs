@@ -3,7 +3,7 @@
     jQuery('.accordable').accordion()
   });
 
-//*****floating menu *inspired by tumblr japon :D*
+//*****floating menu *inspired by tumblr :D*
 //*************************************************
 %div.code#nav
   %ul
@@ -18,31 +18,54 @@
 
 //*****tables for each user
 //**************************
-- @users.each do |user|
-  #table-container
-    %table
-      %thead
-        %tr
-          %td= user.screen_name
-      %tbody
-        %tr
-          %td
-            %div.accordable.ui-accordion.ui-widget.ui-helper-reset
-              - session[:token] = user.token
-              - project_uri = URI.parse("#{@base_url}")
-              - project_doc= Login.net_http(project_uri, session[:token], 'projects')
-              - (project_doc/'project').each do |p|
-                - if p.innerHTML != nil
-                  %h3.pointer.ui-accordion-header.ui-helper-reset.ui-state-active.ui-corner-top
-                  %span.ui-icon.ui-icon-triangle-1-s
-                  %a{href="#"}= p.at('name').innerHTML
-                  - project_id = p.at('id').innerHTML
-                  - story_uri = URI.parse("#{@base_url}/#{project_id}/iterations/current")
-                  - story_doc = Login.net_http(story_uri, session[:token], 'stories')
-                  %div.limiter.ui-accordion-content.ui-helper-reset.ui-widget-content.ui-corner-bottom.ui-accordion-content-active
-                    %p
-                      %ul
-                        - (story_doc/'story').each do |s|
-                          - if s.innerHTML != nil
-                            %li= s.at('name').innerHTML
-      %tfoot
+
+%table
+  %thead.ui-widget-header
+    %tr
+      %td{:colspan => '4'} THIS IS THE HEADER FOR THIS TABLE, IT'S CALLED TABLE HEADER.
+  %tbody
+    %tr
+      %td
+        %table.ui-widget-content
+          %thead
+            %tr
+              %td{:align => 'center', :colspan => '4'} RELEASE HEADER
+          %tbody
+            %tr
+            - @users.each do |user|
+              %td{:style => "vertical-align:top"}
+                %p.ui-widget-header
+                  = user.screen_name
+                  (LABEL)
+                %table.table-container
+                  %tbody
+                    %tr
+                      %td
+                        %div
+                          - session[:token] = user.token
+                          - project_uri = URI.parse("#{@base_url}")
+                          - project_doc= Login.net_http(project_uri, session[:token], 'projects')
+                          - (project_doc/'project').each do |p|
+                            - if p.innerHTML != nil
+                              %h3
+                                %a{href="#"}= p.at('name').innerHTML
+                              - project_id = p.at('id').innerHTML
+                              - story_uri = URI.parse("#{@base_url}/#{project_id}/iterations/current")
+                              - story_doc = Login.net_http(story_uri, session[:token], 'stories')
+                              %div
+                                %p
+                                  %ul
+                                    - (story_doc/'story').each do |s|
+                                      - if s.innerHTML != nil
+                                        %li= s.at('name').innerHTML
+                      %tfoot.ui-widget-header
+                        %tr
+                          %td{:align => 'center'} LABEL FOOTER
+            %tfoot
+              %tr
+                %td{:align => 'center', :colspan => '4'} RELEASE FOOTER
+  
+
+  %tfoot.ui-widget-header
+    %tr
+      %td{:colspan => '4'} THIS IS THE FOOTER FOR THIS TABLE, AND THUS THE NAME TABLE FOOTER.
