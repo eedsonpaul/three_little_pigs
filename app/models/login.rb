@@ -33,11 +33,13 @@ class Login < ActiveRecord::Base
 	  project_doc= Login.net_http(project_uri, token, 'projects')
 		@project_xmls = []
 		@labels = []
+		@project_stories = []
 		(project_doc/'project').each do |p|
 				@project_xmls << p
 				project_id = p.at('id').innerHTML
 				story_uri = URI.parse("#{@base_url}/#{project_id}/stories")
 				story_doc = Login.net_http(story_uri, token, 'stories')
+				@project_stories << story_doc
 				(story_doc/'story').each do |s|
 					if s.innerHTML != nil
 						if s.at('labels')
@@ -52,7 +54,7 @@ class Login < ActiveRecord::Base
 					end
 				end
 			end
-		@return_val = [@project_xmls,@labels]
+		@return_val = [@project_xmls,@labels, @project_stories]
 	end
 	
 end

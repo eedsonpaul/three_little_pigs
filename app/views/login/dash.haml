@@ -9,67 +9,70 @@
 
 //*****tables for each user
 //**************************
--milestone = 1
-%table
-  %thead
-    %tr.span.bold.ui-widget-header
+- milestone = 1
+%table.expand
+  %thead.ui-widget-header
+    %tr.bold 
       %td TABLE HEADER.
-      
   %tbody
     %tr
-      %table
-        %thead
-          %tr.bold
-            %td.cell
-              WEEK
-              = milestone
+      %td.cell
+        %div
+          %table.ui-widget-content
+            %thead
+              %tr.bold
+                %td{:align => 'center', :colspan => '4'} 
+                  WEEK
+                  = milestone
 
-        %tbody.ui-widget-content
-          %tr
-            - session[:token] = session[:user].token
-            - return_val = Login.labelled(session[:token])
-            - @labels = return_val[1]
-            - @project_xmls = return_val[0]
-            - @labels.each do |label|
-              %td.valign
-                %p.ui-widget-header
-                  = label
+            %tbody
+              %tr
+                - session[:token] = session[:user].token
+                - return_val = Login.labelled(session[:token])
+                - @project_xmls = return_val[0]
+                - @labels = return_val[1]
+                - @project_stories = return_val[2]
+                - @labels.each do |label|
+                  %td.valign
+                    %p.ui-widget-header
+                      = label
 
-                %table.cell
-                  %tbody
-                    - @project_xmls.each do |x|
-                      %tr
-                        %td.ui-dialog-titlebar
-                          = x.at('name').innerHTML
-                        - project_id = x.at('id').innerHTML
-                        - story_uri = URI.parse("#{@base_url}/#{project_id}/stories")
-                        - story_doc = Login.net_http(story_uri, session[:token], 'stories')
-                        - (story_doc/'story').each do |s|
-                          - if s.innerHTML != nil
-                            - if s.at('story_type').innerHTML != "release"
-                              - if s.at('labels')
-                                - if s.at('labels').innerHTML == label
-                                  %tr
-                                    %td
-                                      %ul.sortable.ui-sortable
-                                        %li.ui-state-default
-                                          %span.ui-icon ui-icon-arrowthick-2-n-s
-                                          = s.at('name').innerHTML
-                              - else 
-                                - if label == "Other Activities"
-                                  %tr
-                                    %td
-                                      %ul.sortable.ui-sortable
-                                        %li.ui-state-default
-                                          %span.ui-icon ui-icon-arrowthick-2-n-s
-                                          = s.at('name').innerHTML= s.at('name').innerHTML
-                            - else 
-                              - break  
-          - milestone += 1
-        %td
-          WEEK 
-          = milestone            
-              
+                    %table
+                      %tbody
+                        - i=0
+                        - @project_xmls.each do |x|
+                          %tr
+                            %td.ui-dialog-titlebar
+                              = x.at('name').innerHTML
+                            - stories = @project_stories[i]
+                            - i+=1
+                            - (stories/'story').each do |s|
+                              - if s.innerHTML != nil
+                                - if s.at('story_type').innerHTML != "release"
+                                  - if s.at('labels')
+                                    - if s.at('labels').innerHTML == label
+                                      %tr
+                                        %td
+                                          %ul.sortable.ui-sortable
+                                            %li.ui-state-default
+                                              %span.ui-icon ui-icon-arrowthick-2-n-s
+                                              = s.at('name').innerHTML
+                                  - else 
+                                    - if label == "Other Activities"
+                                      %tr
+                                        %td
+                                          %ul.sortable.ui-sortable
+                                            %li.ui-state-default
+                                              %span.ui-icon ui-icon-arrowthick-2-n-s
+                                              = s.at('name').innerHTML= s.at('name').innerHTML
+                                - else 
+                                  - break  
+                - milestone += 1
+                %br
+              %td{:align => 'center', :colspan => '4'} 
+                WEEK 
+                = milestone            
+                
 :javascript
   $(document).ready(function(){
     $(".sortable").sortable();
