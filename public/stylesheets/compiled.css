@@ -180,10 +180,17 @@ a {
   margin: 0;
   padding: 0; }
   .cell .sortable li {
+    width: 300px;
     padding: 1px;
     font-size: 11px; }
     .cell .sortable li span {
       margin-left: -1.3em; }
+
+.expand {
+  width: 100%; }
+
+.center {
+  align: center; }
 
 #navigation-block {
   color: #e6e8f1; }
