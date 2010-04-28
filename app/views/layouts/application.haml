@@ -9,51 +9,56 @@
   = render :partial => 'layouts/includes'
 
 #body
-  - if session[:user]
-    #head-board
-      %p
-        Put your mind on Percolait. Welcome,
-        - @user = User.find(session[:user])
-        = @user.screen_name + '.'
-        = link_to "| dashboard |", dash_path
-        = link_to "| actions |", '#'
-        = link_to "| account |", '#'
-        = link_to "| settings |", '#'
-        = link_to "| help |", '#'
-        = link_to "| log-out |", logout_path
+  %table.table-expand
+    %tr
+      %td
+        - if session[:user]
+          #head-board
+            %ul
+              %span
+              %li.bold.white
+                Put your mind on Percolait. Welcome,
+                - @user = User.find(session[:user])
+                = @user.screen_name + '.'
+              %li= link_to "| dashboard |", dash_path
+              %li= link_to "| actions |", '#'
+              %li= link_to "| account |", '#'
+              %li= link_to "| settings |", '#'
+              %li= link_to "| help |", '#'
+              %li= link_to "| log-out | ", logout_path
 
-  - if session[:user]
-    #page2
-      #header2
-        .headerPadding
-          %h1.code#head_image
-            %span.fake-hover
-            = link_to 'home', root_url
-        %div.clearBoth
+        - if session[:user]
+          #page2
+            #header2
+              .headerPadding
+                %h1.code#head_image
+                  %span.fake-hover
+                  = link_to 'home', root_url
+              %div.clearBoth
 
-      #midpage
-        #wrapper
-          #content2
-            %center
-              #page_effect
-                = yield
+            #midpage
+              #wrapper
+                #content2
+                  %center
+                    #page_effect
+                      = yield
 
-  - else
-    #page
-      #header
-        .headerPadding
-          %h1.code#head_image
-            %span.fake-hover
-            = link_to 'home', root_url
-        %div.clearBoth
+        - else
+          #page
+            #header
+              .headerPadding
+                %h1.code#head_image
+                  %span.fake-hover
+                  = link_to 'home', root_url
+              %div.clearBoth
 
 
-      #midpage
-        #wrapper
-          #content
-            .contentPadding
-              #page_effect
-                = yield
+            #midpage
+              #wrapper
+                #content
+                  .contentPadding
+                    #page_effect
+                      = yield
         #side
           .sidePadding
             = render :partial => 'homepage/sidebar'
