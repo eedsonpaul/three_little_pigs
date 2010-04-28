@@ -1,62 +1,69 @@
-
 //*****floating menu *inspired by tumblr :D*
 //*************************************************
 
 %div.code#nav
-	%ul
-		%li
-			%a.top{:href => "#top" }
-				%img{:src => "/images/buttons/top.png" }
-		%li
-			%a.bottom{:href => "#bottom"}
-				%img{:src => "/images/buttons/bottom.png" }
-
-
+  %ul
+    %li
+      %a.top{:href => "#top" }
+        %img{:src => "/images/buttons/top.png" }
 
 //*****tables for each user
 //**************************
 
 %table
-	%thead.ui-widget-header
-		%tr
-			%td{:colspan => '4'} THIS IS THE HEADER FOR THIS TABLE, IT'S CALLED TABLE HEADER.
-	%tbody
-		%tr
-			%td
-				%table.ui-widget-content
-					%thead
-						%tr
-							%td{:align => 'center', :colspan => '4'} RELEASE HEADER
+  %thead.ui-widget-header
+    %tr.bold 
+      %td TABLE HEADER.
+  %tbody
+    %tr
+      %td.cell
+        %div
+          %table.ui-widget-content
+            %thead
+              %tr.bold
+                %td RELEASE HEADER.
 
-					%tbody
-						%tr
-							- session[:token] = session[:user].token
-							- return_val = Login.labelled(session[:token])
-							- @labels = return_val[1]
-							- @project_xmls = return_val[0]
-							- @labels.each do |label|
-								%td{:style => "vertical-align:top"}
-									%p.ui-widget-header
-										= label
-										%br
-										%table
-											%td
-												- @project_xmls.each do |x|
-													%tr= x.at('name').innerHTML
-													%br
-													- project_id = x.at('id').innerHTML
-													- story_uri = URI.parse("#{@base_url}/#{project_id}/stories")
-													- story_doc = Login.net_http(story_uri, session[:token], 'stories')
-													- (story_doc/'story').each do |s|
-														- if s.innerHTML != nil
-															- if s.at('labels')
-																- if s.at('labels').innerHTML == label
-																	%tr= s.at('name').innerHTML
-																	%br
-															- else 
-																- if label == "Other Activities"
-																	%tr= s.at('name').innerHTML
-																	%br
+            %tbody
+              %tr
+                - session[:token] = session[:user].token
+                - return_val = Login.labelled(session[:token])
+                - @labels = return_val[1]
+                - @project_xmls = return_val[0]
+                - @labels.each do |label|
+                  %td.valign
+                    %p.ui-widget-header
+                      = label
 
-										 	
-										 	
+                    %table
+                      %tbody
+                        - @project_xmls.each do |x|
+                          %tr
+                            %td.ui-dialog-titlebar
+                              = x.at('name').innerHTML
+                            - project_id = x.at('id').innerHTML
+                            - story_uri = URI.parse("#{@base_url}/#{project_id}/stories")
+                            - story_doc = Login.net_http(story_uri, session[:token], 'stories')
+                            - (story_doc/'story').each do |s|
+                              - if s.innerHTML != nil
+                                - if s.at('labels')
+                                  - if s.at('labels').innerHTML == label
+                                    %tr
+                                      %td
+                                        %ul.sortable.ui-sortable
+                                          %li.ui-state-default
+                                            %span.ui-icon ui-icon-arrowthick-2-n-s
+                                            = s.at('name').innerHTML
+                                  - else 
+                                    - if label == "Other Activities"
+                                      %tr
+                                        %td
+                                          %ul.sortable.ui-sortable
+                                            %li.ui-state-default
+                                              %span.ui-icon ui-icon-arrowthick-2-n-s
+                                              = s.at('name').innerHTML= s.at('name').innerHTML
+
+:javascript
+  $(document).ready(function(){
+    $(".sortable").sortable();
+
+  });

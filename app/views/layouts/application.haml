@@ -22,8 +22,8 @@
         = link_to "| help |", '#'
         = link_to "| log-out |", logout_path
 
-  #page
-    - if session[:user]
+  - if session[:user]
+    #page2
       #header2
         .headerPadding
           %h1.code#head_image
@@ -31,7 +31,15 @@
             = link_to 'home', root_url
         %div.clearBoth
 
-    - else
+      #midpage
+        #wrapper
+          #content2
+            .contentPadding
+              #page_effect
+                = yield
+
+  - else
+    #page
       #header
         .headerPadding
           %h1.code#head_image
@@ -40,8 +48,7 @@
         %div.clearBoth
 
 
-    #midpage
-      - if session[:user].nil?
+      #midpage
         #wrapper
           #content
             .contentPadding
@@ -51,14 +58,8 @@
           .sidePadding
             = render :partial => 'homepage/sidebar'
 
-      - else
-        #wrapper
-          #content2
-            .contentPadding
-              #page_effect
-                = yield
-        
-      %div.clearBoth
+
+    %div.clearBoth
 
   .hide
     #footer
