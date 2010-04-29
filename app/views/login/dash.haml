@@ -35,24 +35,30 @@
                             - stories = @project_stories[i]
                             - i+=1
                             - (stories/'story').each do |s|
+                              - if s.at('story_type').innerHTML == "release"
+                                %tr
+                                  %td{:align => 'center'}
+                                    = s.at('name').innerHTML
                               - if s.innerHTML != nil
                                 - if s.at('story_type').innerHTML != "release"
                                   - if s.at('labels')
                                     - if s.at('labels').innerHTML == label
-                                      %tr
-                                        %td
-                                          %ul.sortable.ui-sortable
-                                            %li.ui-state-default
-                                              %span.ui-icon ui-icon-arrowthick-2-n-s
-                                              = s.at('name').innerHTML
+                                      - if s.at('story_type').innerHTML != "release"
+                                        %tr
+                                          %td
+                                            %ul.sortable.ui-sortable
+                                              %li.ui-state-default
+                                                %span.ui-icon ui-icon-arrowthick-2-n-s
+                                                = s.at('name').innerHTML
                                   - else 
                                     - if label == "Other Activities"
-                                      %tr
-                                        %td
-                                          %ul.sortable.ui-sortable
-                                            %li.ui-state-default
-                                              %span.ui-icon ui-icon-arrowthick-2-n-s
-                                              = s.at('name').innerHTML= s.at('name').innerHTML
+                                      - if s.at('story_type').innerHTML != "release"
+                                        %tr
+                                          %td
+                                            %ul.sortable.ui-sortable
+                                              %li.ui-state-default
+                                                %span.ui-icon ui-icon-arrowthick-2-n-s
+                                                = s.at('name').innerHTML= s.at('name').innerHTML
 :javascript
   $(document).ready(function(){
     $(".sortable").sortable();
