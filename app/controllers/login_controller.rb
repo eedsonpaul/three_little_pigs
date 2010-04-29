@@ -4,7 +4,9 @@ class LoginController < ApplicationController
 	require 'net/http'
 	require 'uri'
 	require 'rubygems'
-	
+
+  before_filter :login_required, :only=>['dash', 'logout']
+
   def index
     @user = User.new
   end

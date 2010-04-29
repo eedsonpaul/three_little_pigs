@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
 
+  before_filter :login_required, :only=>['index']
+  
   def create
     oauth.set_callback_url(callback_url)
     session['rtoken']  = oauth.request_token.token

@@ -34,6 +34,7 @@ class Login < ActiveRecord::Base
 		@project_xmls = []
 		@labels = []
 		@project_stories = []
+		
 		(project_doc/'project').each do |p|
 				@project_xmls << p
 				project_id = p.at('id').innerHTML
@@ -43,13 +44,11 @@ class Login < ActiveRecord::Base
 				(story_doc/'story').each do |s|
 					if s.innerHTML != nil
 						if s.at('labels')
-							if Login.is_label(s.at('labels').innerHTML) == false
-								@labels <<  s.at('labels').innerHTML
-							end
+						  bool = Login.is_label(s.at('labels').innerHTML)
+							@labels <<  s.at('labels').innerHTML if bool == false
 						else 
-							if Login.is_label("Other Activities") == false
-								@labels << "Other Activities"
-							end
+							bool = Login.is_label("Other Activities")
+							@labels << "Other Activities" if bool == false
 						end
 					end
 				end

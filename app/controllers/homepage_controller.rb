@@ -1,5 +1,7 @@
 class HomepageController < ApplicationController
   
+  before_filter :login_required, :only=>[ 'pivotal']
+
   def index
   	session[:token] = session[:user]  = nil
   	redirect_to home_path
