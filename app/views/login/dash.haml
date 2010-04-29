@@ -1,16 +1,6 @@
-//*****floating menu *inspired by tumblr :D*
-//*************************************************
-
-%div.code#nav
-  %ul
-    %li
-      %a.top{:href => "#top" }
-        %img{:src => "/images/buttons/top.png" }
-
 //*****tables for each user
 //**************************
-- milestone = 1
-%table.expand
+%table
   %thead.ui-widget-header
     %tr.bold 
       %td TABLE HEADER.
@@ -21,9 +11,7 @@
           %table.ui-widget-content
             %thead
               %tr.bold
-                %td{:align => 'center', :colspan => '4'} 
-                  WEEK
-                  = milestone
+                %td
 
             %tbody
               %tr
@@ -65,14 +53,6 @@
                                             %li.ui-state-default
                                               %span.ui-icon ui-icon-arrowthick-2-n-s
                                               = s.at('name').innerHTML= s.at('name').innerHTML
-                                - else 
-                                  - break  
-                - milestone += 1
-                %br
-              %td{:align => 'center', :colspan => '4'} 
-                WEEK 
-                = milestone            
-                
 :javascript
   $(document).ready(function(){
     $(".sortable").sortable();

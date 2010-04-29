@@ -1,8 +1,13 @@
 #head-board {
+  position: fixed;
+  top: 0;
+  left: 0;
+  opacity: 1.0;
+  z-index: 999999;
   min-width: 600px;
   width: 100%;
-  height: 50px;
-  line-height: 50px;
+  height: 35px;
+  line-height: 20px;
   clear: both; }
   #head-board ul {
     list-style-stype: none; }
@@ -185,13 +190,19 @@ a {
     .cell .sortable li span {
       margin-left: -1.3em; }
 
-.table-expand tr, .table-expand td {
-  cell-spacing: 0;
-  cell-padding: 0; }
-.table-expand span {
-  width: 100%; }
+.table-expand {
+  position: relative;
+  top: 0;
+  padding: 0;
+  margin: 0; }
+  .table-expand tr {
+    cell-spacing: 0;
+    cell-padding: 0; }
+  .table-expand span {
+    width: 100%; }
 
 .center {
+  text-align: center;
   align: center; }
 
 .span {
@@ -244,34 +255,3 @@ ul#sliding-navigation {
   margin: 0 auto;
   padding: 5px;
   display: block; }
-
-#nav {
-  height: 35px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999999;
-  opacity: 1.0;
-  background: transparent repeat-x center left; }
-  #nav ul {
-    height: 25px;
-    list-style: none;
-    margin: auto; }
-    #nav ul li {
-      float: left;
-      margin: 0px 2px; }
-  #nav a {
-    font-size: 11px;
-    font-weight: bold;
-    float: left;
-    padding: 2px 4px;
-    color: #000000;
-    text-decoration: none;
-    border: 1px solid #CCCCCC;
-    cursor: pointer;
-    background: transparent url("/images/nav.png") repeat-x center left;
-    height: 16px;
-    line-height: 16px; }
-    #nav ahover {
-      background: #D9D9DA none;
-      color: #d6dfc9; }
