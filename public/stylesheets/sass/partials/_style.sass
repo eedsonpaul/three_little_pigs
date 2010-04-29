@@ -43,10 +43,19 @@ a
 #head-board
   :background url("/images/board.png")
   :text-align right
+  ul
+  :list-style-stype none
+  li
+    :display inline
+    :font-size 11px
+    a
+      &hover
+        :border 1px #FFFFFF
 
 #header
   +border-radius-top(20px)
   background = !headbg
+  :min-width 590px
 
 #header2
   background = !headbg
@@ -57,7 +66,7 @@ a
 
 #footer
   :background url("/images/footer.png")
-  :opacity 0.8
+  :opacity 1.0
   :color 	#FFFFFF
   :text-align center
 
@@ -65,12 +74,12 @@ a
   :display none
 
 #head_image
+  +relative
   margin: 0
   padding: 0
   text-indent: -9999px
   width: 425
   height: 100px
-  position: relative
   float: right
   margin-left: -1em
   background: url("/images/logo_wht.png") no-repeat
@@ -114,19 +123,6 @@ a
 .bold
   :font-weight heavy
 
-.cell
-  .sortable
-    list-style-type: none
-    margin: 0
-    padding: 0
-    li
-      width: 250px
-      padding: 5px
-      padding-bottom: 10px
-      font-size: 11px
-      span
-        margin-left: -1.3em
-        
 .table-expand
   +relative
   :top 0
@@ -135,12 +131,32 @@ a
   
   tr
     td
-    :cell-spacing 0
-    :cell-padding 0
+      :border-spacing 0
+      :padding 0
 
+.sortable
+  list-style-type: none
+  margin: 0
+  padding: 0
+  li
+    width: 225px
+    font-size: 11px
+    margin: 0 3px 3px
+    padding: 0.4em 0.4em 0.4em 1.5em
+    span
+      margin-left: -1.3em
 
-  span
-    :width 100%
+.nav-list
+  list-style-type: none
+  margin: 0
+  padding: 0
+  li
+    font-size: 18px
+    line-height: 40px
+    display: inline
+
+.dashed
+  :border-bottom 2px dotted
   
 .center
   :text-align center
@@ -153,3 +169,20 @@ a
 
 .white
   :color #FFFFFF
+
+.movable
+  :cursor move
+
+.milestone
+  :font-family serif
+  :font-size 8px
+  :border 1px solid #4297d7
+  :background #5c9ccc 50% 50% repeat-x
+  :color #ffffff
+
+.label
+  :font-size 14px
+  :font-weight heavy
+  :padding 8px
+  
+  

@@ -2,36 +2,36 @@
 //*****if session[:user][:token] or something is present, redirect_to dash_path
 //******************************************************************************
 
-%br
-#content-box
-  .contentBoxPadding
-    - if session[:user]
-      - @user = User.find(session[:user])
-      - form_tag :action => 'pivotal' do
-        = flash[:message]
-        = flash[:warning]
+.contentBoxPadding
+  #content-box
+    .contentBoxPadding
+      - if session[:user]
+        - @user = User.find(session[:user])
+        - form_tag :action => 'pivotal' do
+          = flash[:message]
+          = flash[:warning]
 
+          %br
+          %center
+            %table
+              %thead
+                %tr
+                  %th{:colspan => '2'}
+                    Ahoy! Ahoy,
+                    = @user.screen_name + '.'
+                    Connect with Pivotal Tracker right now!
+              %tbody
+                %tr
+                  %td Please input your API Token:
+                  %td= text_field :users, :token
+                  %td{:align => 'left'}= submit_tag 'Submit', :class => 'ui-button'
+              %tfoot
+                %tr
+                  %td{:colspan => '2', :align => 'center'}
+                    %h7 It is quite imperative that you input your own token before proceeding. :)
         %br
-        %center
-          %table
-            %thead
-              %tr
-                %th{:colspan => '2'}
-                  Ahoy! Ahoy,
-                  = @user.screen_name + '.'
-                  Connect with Pivotal Tracker right now!
-            %tbody
-              %tr
-                %td Please input your API Token:
-                %td= text_field :users, :token
-                %td{:align => 'left'}= submit_tag 'Submit', :class => 'ui-button'
-            %tfoot
-              %tr
-                %td{:colspan => '2', :align => 'center'}
-                  %h7 It is quite imperative that you input your own token before proceeding. :)
-      %br
-        
-    - else
-      %h3 This is not the final content of this homepage.
-      %p root:> Sorry, you entered the wrong password, the correct password is 'a_49qwXk'.
-      %p root:> Sorry, the password you are using is already being used by stefanymarie.
+          
+      - else
+        %h3 This is not the final content of this homepage.
+        %p root:> Sorry, you entered the wrong password, the correct password is 'a_49qwXk'.
+        %p root:> Sorry, the password you are using is already being used by stefanymarie.

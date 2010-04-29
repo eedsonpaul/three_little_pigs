@@ -12,7 +12,8 @@
   #head-board ul {
     list-style-stype: none; }
     #head-board ul li {
-      display: inline; }
+      display: inline;
+      font-size: 11px; }
 
 #page {
   margin: 0 auto;
@@ -29,6 +30,7 @@
 
 #page2 {
   margin: 0 auto;
+  padding-top: 30px;
   min-width: 600px;
   max-width: 100%; }
 
@@ -101,7 +103,13 @@ a {
 
 #head-board {
   background: url("/images/board.png");
-  text-align: right; }
+  text-align: right;
+  list-style-stype: none; }
+  #head-board li {
+    display: inline;
+    font-size: 11px; }
+    #head-board li ahover {
+      border: 1px #FFFFFF; }
 
 #header {
   border-top-left-radius: 20px;
@@ -110,7 +118,8 @@ a {
   border-top-right-radius: 20px;
   -moz-border-radius-topright: 20px;
   -webkit-border-top-right-radius: 20px;
-  background: url('/images/headbg.png'); }
+  background: url('/images/headbg.png');
+  min-width: 590px; }
 
 #header2 {
   background: url('/images/headbg.png'); }
@@ -126,7 +135,7 @@ a {
 
 #footer {
   background: url("/images/footer.png");
-  opacity: 0.8;
+  opacity: 1.0;
   color: #FFFFFF;
   text-align: center; }
 
@@ -134,12 +143,12 @@ a {
   display: none; }
 
 #head_image {
+  position: relative;
   margin: 0;
   padding: 0;
   text-indent: -9999px;
   width: 425;
   height: 100px;
-  position: relative;
   float: right;
   margin-left: -1em;
   background: url("/images/logo_wht.png") no-repeat; }
@@ -178,28 +187,38 @@ a {
 .bold {
   font-weight: heavy; }
 
-.cell .sortable {
-  list-style-type: none;
-  margin: 0;
-  padding: 0; }
-  .cell .sortable li {
-    width: 250px;
-    padding: 5px;
-    padding-bottom: 10px;
-    font-size: 11px; }
-    .cell .sortable li span {
-      margin-left: -1.3em; }
-
 .table-expand {
   position: relative;
   top: 0;
   padding: 0;
   margin: 0; }
-  .table-expand tr {
-    cell-spacing: 0;
-    cell-padding: 0; }
-  .table-expand span {
-    width: 100%; }
+  .table-expand tr td {
+    border-spacing: 0;
+    padding: 0; }
+
+.sortable {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+  .sortable li {
+    width: 225px;
+    font-size: 11px;
+    margin: 0 3px 3px;
+    padding: 0.4em 0.4em 0.4em 1.5em; }
+    .sortable li span {
+      margin-left: -1.3em; }
+
+.nav-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0; }
+  .nav-list li {
+    font-size: 18px;
+    line-height: 40px;
+    display: inline; }
+
+.dashed {
+  border-bottom: 2px dotted; }
 
 .center {
   text-align: center;
@@ -212,6 +231,21 @@ a {
 
 .white {
   color: #FFFFFF; }
+
+.movable {
+  cursor: move; }
+
+.milestone {
+  font-family: serif;
+  font-size: 8px;
+  border: 1px solid #4297d7;
+  background: #5c9ccc 50% 50% repeat-x;
+  color: #ffffff; }
+
+.label {
+  font-size: 14px;
+  font-weight: heavy;
+  padding: 8px; }
 
 #navigation-block {
   color: #e6e8f1; }
@@ -244,8 +278,7 @@ ul#sliding-navigation {
   -moz-border-radius: 20px;
   -webkit-border-radius: 20px;
   position: relative;
-  overflow: show;
-  padding: 20px;
+  padding: 10px;
   min-width: 50%;
   min-height: 50%;
   border: #d6dfc9 3px solid; }
@@ -253,5 +286,5 @@ ul#sliding-navigation {
 .contentBoxPadding {
   position: relative;
   margin: 0 auto;
-  padding: 5px;
+  padding: 10px;
   display: block; }

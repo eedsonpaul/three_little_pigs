@@ -1,66 +1,65 @@
 //*****tables for each user
 //**************************
-%table
-  %thead.ui-widget-header
+%table.table-expand.ui-widget
+  %thead
     %tr.bold 
-      %td TABLE HEADER.
+      %td.ui-widget-header PERCOLAIT TRACKER.
   %tbody
     %tr
-      %td.cell
-        %div
-          %table.ui-widget-content
-            %thead
-              %tr.bold
-                %td
+      %td.ui-widget.ui-widget-content.ui-corner-top
+        %table
+          %thead
+            %tr.bold
+              %td
 
-            %tbody
-              %tr
-                - session[:token] = session[:user].token
-                - return_val = Login.labelled(session[:token])
-                - @project_xmls = return_val[0]
-                - @labels = return_val[1]
-                - @project_stories = return_val[2]
-                - @labels.each do |label|
-                  %td.valign
-                    %p.ui-widget-header
-                      = label
+          %tbody
+            %tr
+              - session[:token] = session[:user].token
+              - return_val = Login.labelled(session[:token])
+              - @project_xmls = return_val[0]
+              - @labels = return_val[1]
+              - @project_stories = return_val[2]
+              - @labels.each do |label|
+                %td.valign
+                  %p.ui-widget-header.ui-corner-all.label
+                    = label
 
-                    %table
-                      %tbody
-                        - i=0
-                        - @project_xmls.each do |x|
-                          %tr
-                            %td.ui-dialog-titlebar
-                              = x.at('name').innerHTML
-                            - stories = @project_stories[i]
-                            - i+=1
-                            - (stories/'story').each do |s|
-                              - if s.at('story_type').innerHTML == "release"
-                                %tr
-                                  %td{:align => 'center'}
-                                    = s.at('name').innerHTML
-                              - if s.innerHTML != nil
-                                - if s.at('story_type').innerHTML != "release"
-                                  - if s.at('labels')
-                                    - if s.at('labels').innerHTML == label
-                                      - if s.at('story_type').innerHTML != "release"
-                                        %tr
-                                          %td
-                                            %ul.sortable.ui-sortable
-                                              %li.ui-state-default
-                                                %span.ui-icon ui-icon-arrowthick-2-n-s
-                                                = s.at('name').innerHTML
-                                  - else 
-                                    - if label == "Other Activities"
-                                      - if s.at('story_type').innerHTML != "release"
-                                        %tr
-                                          %td
-                                            %ul.sortable.ui-sortable
-                                              %li.ui-state-default
-                                                %span.ui-icon ui-icon-arrowthick-2-n-s
-                                                = s.at('name').innerHTML= s.at('name').innerHTML
+                  %table
+                    %tbody
+                      - i=0
+                      - @project_xmls.each do |x|
+                        %tr
+                          %td
+                            %h4.dashed= x.at('name').innerHTML
+                          - stories = @project_stories[i]
+                          - i+=1
+                          - (stories/'story').each do |s|
+                            - if s.at('story_type').innerHTML == "release"
+                              %tr
+                                %td.milestone{:align => 'center'}
+                                  = s.at('name').innerHTML
+                            - if s.innerHTML != nil
+                              - if s.at('story_type').innerHTML != "release"
+                                - if s.at('labels')
+                                  - if s.at('labels').innerHTML == label
+                                    - if s.at('story_type').innerHTML != "release"
+                                      %tr
+                                        %td
+                                          %ul.sortable.ui-sortable.movable
+                                            %li.ui-state-default
+                                              %span.ui-icon.ui-icon-arrowthick-2-n-s
+                                              = s.at('name').innerHTML
+                                - else 
+                                  - if label == "Other Activities"
+                                    - if s.at('story_type').innerHTML != "release"
+                                      %tr
+                                        %td
+                                          %ul.sortable.ui-sortable.movable
+                                            %li.ui-state-default
+                                              %span.ui-icon.ui-icon-arrowthick-2-n-s
+                                              = s.at('name').innerHTML= s.at('name').innerHTML
 :javascript
   $(document).ready(function(){
-    $(".sortable").sortable();
+    $( ".sortable" ).sortable();
 
   });

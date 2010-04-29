@@ -17,19 +17,18 @@
           Put your mind on Percolait. Welcome,
           - @user = User.find(session[:user])
           = @user.screen_name + '.'
-        %li= link_to "dashboard", dash_path
-        %li= link_to "actions", '#'
-        %li= link_to "account", '#'
-        %li= link_to "settings", '#'
-        %li= link_to "help", '#'
-        %li= link_to "log-out", logout_path
+        %li= link_to "dashboard |", dash_path
+        %li= link_to " actions |", '#'
+        %li= link_to " account |", '#'
+        %li= link_to " settings |", '#'
+        %li= link_to " help |", '#'
+        %li= link_to " log-out ", logout_path
 
   %body.table-expand
     %table
       %tr
         %td
-          %br
-          - if session[:user]
+          - if session[:user] and session[:token].nil?
             #page2
               #header2
                 .headerPadding
@@ -38,12 +37,23 @@
                     = link_to 'home', root_url
                 %div.clearBoth
 
-              #midpage
-                #wrapper
-                  #content2
-                    %center
-                      #page_effect
-                        = yield
+            #midpage
+              #wrapper
+                #content2
+                  %center
+                    #page_effect
+                      = yield
+
+          - elsif session[:token]
+            #page2
+              %div.clearBoth
+
+            #midpage
+              #wrapper
+                #content2
+                  %center
+                    #page_effect
+                      = yield
 
           - else
             #page
@@ -65,10 +75,9 @@
                 .sidePadding
                   = render :partial => 'homepage/sidebar'
 
-
       %div.clearBoth
 
     .hide
       #footer
         %center
-          %p this is the footer
+          %p &copy; Copyright 2010
