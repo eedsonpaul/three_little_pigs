@@ -52,7 +52,7 @@
                                                 %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{s.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }    
                                                 - if ( s.at('estimate')  and s.at('estimate').innerHTML != "-1")
                                                   %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{s.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
-                                                = s.at('name').innerHTML
+                                              = s.at('name').innerHTML
                                 - else 
                                   - if label == "Other Activities"
                                     - if s.at('story_type').innerHTML != "release"
@@ -63,8 +63,8 @@
                                               %span.ui-icon.ui-icon-arrowthick-2-n-s
                                               %div.icons
                                                 %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{s.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }    
-                                              - if ( s.at('estimate')  and s.at('estimate').innerHTML != "-1")
-                                                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{s.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" } 
+                                                - if ( s.at('estimate')  and s.at('estimate').innerHTML != "-1")
+                                                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{s.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" } 
                                               = s.at('name').innerHTML
 :javascript
   $(document).ready(function(){
