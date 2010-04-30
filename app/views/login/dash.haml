@@ -19,55 +19,36 @@
               - @project_xmls = return_val[0]
               - @labels = return_val[1]
               - @project_stories = return_val[2]
+              
               - @labels.each do |label|
                 %td.valign
                   %p.ui-widget-header.ui-corner-all.label
                     = label
-
                   %table
                     %tbody
                       - i=0
                       - @project_xmls.each do |x|
-                        %tr
-                          %td
-                            %h4.dashed= x.at('name').innerHTML
+                        %li.notsortable.dashed= x.at('name').innerHTML
+                        %ul.sortable.ui-sortable.movable
                           - stories = @project_stories[i]
                           - i+=1
-                          - (stories/'story').each do |s|
-                            - if s.at('story_type').innerHTML == "release"
-                              %tr
-                                %td.milestone{:align => 'center'}
-                                  = s.at('name').innerHTML
-                            - if s.innerHTML != nil
-                              - if s.at('story_type').innerHTML != "release"
-                                - if s.at('labels')
-                                  - if s.at('labels').innerHTML == label
-                                    - if s.at('story_type').innerHTML != "release"
-                                      %tr
-                                        %td
-                                          %ul.sortable.ui-sortable.movable
-                                            %li.ui-state-default
-                                              %span.ui-icon.ui-icon-arrowthick-2-n-s
-                                              %div.icons
-                                                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{s.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }    
-                                                - if ( s.at('estimate')  and s.at('estimate').innerHTML != "-1")
-                                                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{s.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
-                                              = s.at('name').innerHTML
-                                - else 
-                                  - if label == "Other Activities"
-                                    - if s.at('story_type').innerHTML != "release"
-                                      %tr
-                                        %td
-                                          %ul.sortable.ui-sortable.movable
-                                            %li.ui-state-default
-                                              %span.ui-icon.ui-icon-arrowthick-2-n-s
-                                              %div.icons
-                                                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{s.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }    
-                                                - if ( s.at('estimate')  and s.at('estimate').innerHTML != "-1")
-                                                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{s.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" } 
-                                              = s.at('name').innerHTML
+                          - s = Login.find_labels(stories,label)
+                          - if s != nil
+                            - s.each do |a|
+                              - if a.at('story_type').innerHTML == "release"
+                                %li.milestone{:align => 'center'}
+                                  = a.at('name').innerHTML
+                              -else 
+                                %li.ui-state-default
+                                  %span.ui-icon.ui-icon-arrowthick-2-n-s
+                                  %div.icons
+                                    %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }    
+                                    -if ( a.at('estimate')  and a.at('estimate').innerHTML != "-1")
+                                      %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
+                                  = a.at('name').innerHTML
+
 :javascript
   $(document).ready(function(){
     $( ".sortable" ).sortable();
-
+    $(".notsortable").disableSelection();
   });
