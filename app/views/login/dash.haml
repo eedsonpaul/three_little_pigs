@@ -19,7 +19,7 @@
               - @project_xmls = return_val[0]
               - @labels = return_val[1]
               - @project_stories = return_val[2]
-              
+              - x_arr = []
               - @labels.each do |label|
                 %td.valign
                   %p.ui-widget-header.ui-corner-all.label
@@ -28,8 +28,7 @@
                     %tbody
                       - i=0
                       - @project_xmls.each do |x|
-                        - @array = x.at('id').innerHTML
-                        - logger.info(@array)
+                        - x_arr << x.at('id').innerHTML
                         %li.dashed= x.at('name').innerHTML
                         %ul{:class => "#{x.at('id').innerHTML} sortable ui-sortable movable connectedSortable_#{x.at('id').innerHTML}"}
                           - stories = @project_stories[i]
@@ -48,14 +47,20 @@
                                       %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
                                     %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }
                                   = a.at('name').innerHTML
-
+%br
+%script
+  = "var myVar= #{x_arr[0]};"
+  = "var myVar1= #{x_arr[1]};"
 :javascript
   $(document).ready(function(){
     $(".sortable").sortable({
       cancel: '.state-disabled'
     });
     $(".sortable li").disableSelection();
-    $(".77423").sortable({
-      connectWith: '.connectedSortable_77423'
+    $("."+myVar).sortable({
+      connectWith: ".connectedSortable_"+myVar
     }).disableSelection();
-  });
+    $("."+myVar1).sortable({
+      connectWith: ".connectedSortable_"+myVar1
+    }).disableSelection();
+  });                            
