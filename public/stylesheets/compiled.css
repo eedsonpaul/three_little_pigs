@@ -171,6 +171,12 @@ a {
 .pointer {
   cursor: pointer; }
 
+.cursor-default {
+  cursor: default; }
+
+.movable {
+  cursor: move; }
+
 .limiter {
   max-width: 270px;
   max-height: 300px;
@@ -226,9 +232,6 @@ a {
 
 .white {
   color: #FFFFFF; }
-
-.movable {
-  cursor: move; }
 
 .milestone {
   font-family: serif;
