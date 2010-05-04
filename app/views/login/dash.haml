@@ -48,19 +48,32 @@
                                     %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }
                                   = a.at('name').innerHTML
 %br
+- @count = 0
 %script
-  = "var myVar= #{x_arr[0]};"
-  = "var myVar1= #{x_arr[1]};"
+  ="var myVar = new Array(#{x_arr.size});"
+  ="var c = 0;"
+  ="var y = -1;"
+- x_arr.each do
+  %script
+    ="myVar[c]= #{x_arr[@count]};"
+    ="c+=1;"
+  -@count+=1
+    
 :javascript
   $(document).ready(function(){
     $(".sortable").sortable({
       cancel: '.state-disabled'
     });
     $(".sortable li").disableSelection();
-    $("."+myVar).sortable({
-      connectWith: ".connectedSortable_"+myVar
-    }).disableSelection();
-    $("."+myVar1).sortable({
-      connectWith: ".connectedSortable_"+myVar1
-    }).disableSelection();
-  });                            
+  });
+
+%script
+  ="y+=1;"
+:javascript
+  $(document).ready(function(){
+  $("."+myVar[y]).sortable({
+    connectWith: ".connectedSortable_"+myVar[y]
+  }).disableSelection();
+  });
+
+  
