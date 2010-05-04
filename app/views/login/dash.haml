@@ -28,8 +28,10 @@
                     %tbody
                       - i=0
                       - @project_xmls.each do |x|
+                        - @array = x.at('id').innerHTML
+                        - logger.info(@array)
                         %li.dashed= x.at('name').innerHTML
-                        %ul.sortable.ui-sortable.movable
+                        %ul{:class => "#{x.at('id').innerHTML} sortable ui-sortable movable connectedSortable_#{x.at('id').innerHTML}"}
                           - stories = @project_stories[i]
                           - i+=1
                           - s = Login.find_labels(stories,label)
@@ -53,5 +55,7 @@
       cancel: '.state-disabled'
     });
     $(".sortable li").disableSelection();
-
+    $(".77423").sortable({
+      connectWith: '.connectedSortable_77423'
+    }).disableSelection();
   });
