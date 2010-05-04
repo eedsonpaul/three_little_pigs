@@ -52,7 +52,6 @@
 %script
   ="var myVar = new Array(#{x_arr.size});"
   ="var c = 0;"
-  ="var y = -1;"
 - x_arr.each do
   %script
     ="myVar[c]= #{x_arr[@count]};"
@@ -67,13 +66,11 @@
     $(".sortable li").disableSelection();
   });
 
-%script
-  ="y+=1;"
 :javascript
   $(document).ready(function(){
-  $("."+myVar[y]).sortable({
-    connectWith: ".connectedSortable_"+myVar[y]
-  }).disableSelection();
+  var y =0;
+  for(;y<"#{x_arr.size}";y++){
+    $("."+myVar[y]).sortable({connectWith: ".connectedSortable_"+myVar[y]}).disableSelection();
+  }
   });
-
   
