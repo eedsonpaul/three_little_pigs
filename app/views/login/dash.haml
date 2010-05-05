@@ -23,6 +23,8 @@
               - @labels = return_val[1]
               - @project_stories = return_val[2]
               - x_arr = []
+              - options = {}
+              - options.update(:in_reply_to_status_id => params[:in_reply_to_status_id]) if params[:in_reply_to_status_id].present?
               - @labels.each do |label|
                 %td.valign
                   %p.ui-widget-header.ui-corner-all.label
@@ -60,6 +62,13 @@
       $("." + this).sortable({
         connectWith: ".connectedSortable_" + this,
         cancel: '.state-disabled',
+        over: function(event, ui){
+          alert("YAY!");
+          $.ajax({ 
+            type: "GET",
+            url: "#{ tweet_user_url(session[:user]) }"
+          });
+        }
       }).disableSelection();
     });
   });
