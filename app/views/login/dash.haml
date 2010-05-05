@@ -5,7 +5,8 @@
 %table.table-expand.ui-widget
   %thead
     %tr.bold 
-      %td.ui-widget-header PERCOLAIT TRACKER.
+      %td.ui-widget-header
+        = link_to "PERCOLAIT TRACKER.", dash_url
   %tbody
     %tr
       %td.ui-widget.ui-widget-content.ui-corner-top
@@ -32,13 +33,13 @@
                       - @project_xmls.each do |x|
                         - x_arr << x.at('id').innerHTML
                         %li.dashed= x.at('name').innerHTML
-                        %ul{:class => "#{x.at('id').innerHTML} sortable ui-sortable movable connectedSortable_#{x.at('id').innerHTML}"}
+                        %ul{:class => "#{x.at('id').innerHTML} sortable movable connectedSortable_#{x.at('id').innerHTML}"}
                           - stories = @project_stories[i]
                           - i+=1
                           - s = Login.find_labels(stories,label)
                           - s.each do |a|
                             - if a.at('story_type').innerHTML == "release"
-                              %li{:align => 'center', :class => 'milestone state-disabled cursor-default'}
+                              %li{:class => 'milestone state-disabled cursor-default center'}
                                 = a.at('name').innerHTML
                             -else
                               %li.ui-state-default
