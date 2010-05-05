@@ -1,3 +1,5 @@
+- require 'json'
+
 //*****tables for each user
 //**************************
 %table.table-expand.ui-widget
@@ -47,25 +49,16 @@
                                   %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }
                                 = a.at('name').innerHTML
 %br
-- @count = 0
-%script
-  ="var myVar = new Array(#{x_arr.size});"
-  ="var c = 0;"
-- x_arr.each do
-  %script
-    ="myVar[c]= #{x_arr[@count]};"
-    ="c+=1;"
-  -@count+=1
     
 :javascript
-  $(document).ready(function(){
-  var y =0;
+  var myVar = new Array(#{x_arr.size});
+  myVar = #{x_arr.to_json};
   
-  for(; y<"#{x_arr.size}"; y++){
-    $("." + myVar[y]).sortable({
-      connectWith: ".connectedSortable_" + myVar[y],
-      cancel: '.state-disabled',
+  $(document).ready(function(index){
+    $(myVar).each(function(index, obj){
+      $("." + this).sortable({
+        connectWith: ".connectedSortable_" + this,
+        cancel: '.state-disabled',
       }).disableSelection();
-    };
+    });
   });
-  
