@@ -19,7 +19,7 @@ class LoginController < ApplicationController
     session[:atoken] = oauth.access_token.token
     session[:asecret] = oauth.access_token.secret
     session[:token] = nil
-    @user = User.create(:screen_name => profile.screen_name, :twitter_id => profile.id)
+    session[:user] = @user = User.create(:screen_name => profile.screen_name, :twitter_id => profile.id)
     
     if @user
       redirect_to home_path
