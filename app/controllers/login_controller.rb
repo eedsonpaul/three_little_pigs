@@ -19,14 +19,7 @@ class LoginController < ApplicationController
     session[:atoken] = oauth.access_token.token
     session[:asecret] = oauth.access_token.secret
     session[:token] = nil
-
-    if Login.duplicate(profile.id) == true
-    	@user = User.find_by_twitter_id(profile.id)
-    	session[:user] = @user
-    else
-    	@user = User.create(:screen_name => profile.screen_name, :twitter_id => profile.id)
-    	session[:user] = @user
-    end
+    @user = User.create(:screen_name => profile.screen_name, :twitter_id => profile.id)
     
     if @user
       redirect_to home_path
