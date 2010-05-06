@@ -1,10 +1,8 @@
-# Filters added to this controller apply to all controllers in the application.
-# Likewise, all the methods added will be available for all controllers.
-
 class ApplicationController < ActionController::Base
-  helper :all # include all helpers, all the time
-  protect_from_forgery # See ActionController::RequestForgeryProtection for details
-
+  include Twitter::AuthenticationHelpers
+  helper :all 
+  protect_from_forgery
+  rescue_from Twitter::Unauthorized, :with => :force_sign_in
   def login_required
     if session[:user]
       return true
@@ -20,7 +18,7 @@ class ApplicationController < ActionController::Base
 
    private
     def oauth
-      @oauth ||= Twitter::OAuth.new('qHQJeBAlWDhByyjp3laQ', 'UsanGcasLM2adLVi0jtcC7IQz1Yw0zcbjE2XDfptRQ', :sign_in => true)
+       @oauth ||= Twitter::OAuth.new(ConsumerToken, ConsumerSecret, :sign_in => true)
     end
     
     def client
@@ -28,4 +26,10 @@ class ApplicationController < ActionController::Base
       Twitter::Base.new(oauth)
     end
     helper_method :client
+    
+    def force_sign_in(exception)
+      reset_session
+      flash[:error] = 'Seems your credentials are not good anymore. Please sign in again.'
+      redirect_to root_url
+    end
 end

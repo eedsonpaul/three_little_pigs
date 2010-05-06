@@ -8,7 +8,7 @@ require File.join(File.dirname(__FILE__), 'boot')
 
 Rails::Initializer.run do |config|
 	config.gem 'pivotal-tracker'
-  config.gem 'twitter'
+  config.gem 'twitter', :version => '0.9.1'  
   config.gem 'haml'
   config.gem 'compass'
   config.gem 'will_paginate'
