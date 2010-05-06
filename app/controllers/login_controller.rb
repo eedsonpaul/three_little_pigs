@@ -22,10 +22,12 @@ class LoginController < ApplicationController
 
     if Login.duplicate(profile.id) == true
     	logger.info("true")
-    	session[:user] = @user = User.find_by_twitter_id(profile.id)
+    	@user = User.find_by_twitter_id(profile.id)
+    	session[:user] = @user
     else
     	logger.info("false")
-    	session[:user] = @user = User.create(:screen_name => profile.screen_name, :twitter_id => profile.id)
+    	@user = User.create(:screen_name => profile.screen_name, :twitter_id => profile.id)
+    	session[:user] = @user
     end
     
     if @user
