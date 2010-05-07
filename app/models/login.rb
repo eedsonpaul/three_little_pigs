@@ -34,15 +34,23 @@ class Login < ActiveRecord::Base
 		@project_xmls = []
 		@labels = []
 		@project_stories = []
+		@positions = [[]]
+		
+		project_count = 0
 		
 		(project_doc/'project').each do |p|
 				@project_xmls << p
+				
 				project_id = p.at('id').innerHTML
 				story_uri = URI.parse("#{@base_url}/#{project_id}/iterations/current")
 				story_doc = Login.net_http(story_uri, token, 'stories')
+				
 				@project_stories << story_doc
+				@temp = []
 				(story_doc/'story').each do |s|
 					if s.innerHTML != nil
+					
+					  @temp << s.at('id').innerHTML
 						if s.at('labels')
 						  bool = Login.is_label(s.at('labels').innerHTML)
 							@labels <<  s.at('labels').innerHTML if bool == false
@@ -52,8 +60,10 @@ class Login < ActiveRecord::Base
 						end
 					end
 				end
+				@positions[project_count] = @temp
+				project_count += 1
 			end
-		@return_val = [@project_xmls,@labels, @project_stories]
+		@return_val = [@project_xmls,@labels, @project_stories, @positions]
 	end
 	
 	def self.find_labels (xmls, label)
