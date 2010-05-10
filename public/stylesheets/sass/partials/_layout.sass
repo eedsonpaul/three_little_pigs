@@ -9,6 +9,10 @@
 
 =margin-auto
   :margin 0 auto
+  
+=pages
+  +margin-auto
+  :min-width 600px
 
 
 
@@ -25,13 +29,9 @@
   :line-height 20px
   :clear both
 
-
 #page
-  +margin-auto
+  +pages
   :padding 3em 0
-  :width 100%
-  :min-width 600px
-  :max-width 1200px
 
 #header
   clear: both
@@ -40,10 +40,13 @@
   height: 100px
 
 #page2
-  +margin-auto
+  +pages
   :padding-top 30px
-  :min-width 600px
-  :max-width 100%
+  :width 100%
+  
+#page3
+  +pages
+  :padding-top 60px
   
 #wrapper
   :float left
@@ -54,6 +57,7 @@
 
 #content2
   :margin auto
+  :padding-bottom 30px
 
 #side
   :float left
@@ -61,17 +65,22 @@
   :margin-left -100%
 
 #footer
+  +relative
+  :bottom 0
+  :margin 0
+  :width 100%
+  
+#footer2
   +fixed
   :bottom 0
   :margin 0
   :width 100%
-
+  
 .headerPadding
   :padding 1em
 
 .contentPadding
   :padding 1em
-  :min-height 450px
 
 .sidePadding
   :padding 1em 0.5em 1em 0.5em

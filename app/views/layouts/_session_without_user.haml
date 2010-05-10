@@ -1,0 +1,24 @@
+#page
+  #header
+    .headerPadding
+      %h1.code#head_image
+        %span.fake-hover
+        = link_to 'home', root_url
+    %div.clearBoth
+
+
+  #midpage
+    #wrapper
+      #content
+        .contentPadding
+          #page_effect
+            = yield
+  #side
+    .sidePadding
+      = render :partial => 'homepage/sidebar'
+      
+  %div.clearBoth
+
+  #footer
+    %center
+      %p &copy; Copyright 2010

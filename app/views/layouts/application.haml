@@ -8,29 +8,31 @@
   %title percolait tracker
   = render :partial => 'layouts/includes'
 
-%center
-  - if session[:user]
+%body
+  - if !session[:user].nil?
+    - @user = User.find(session[:user])
+    
+  - if !@user.nil?
     #head-board
       %ul
         %span
         %li.bold.white
           Put your mind on Percolait. Welcome,
-          - @user = User.find(session[:user])
           = @user.screen_name + '.'
-        %li= link_to "dashboard |", dash_path
-        %li= link_to " actions |", '#'
-        %li= link_to " account |", '#'
-        %li= link_to " settings |", '#'
-        %li= link_to " help |", '#'
-        %li= link_to " log-out ", logout_path
+        %li= link_to "| dashboard |", dash_path
+        %li= link_to "| actions |", '#'
+        %li= link_to "| account |", '#'
+        %li= link_to "| settings |", '#'
+        %li= link_to "| help |", '#'
+        %li= link_to "| log-out |", logout_path
 
-  %body.table-expand
+  %center
     %table
       %tr
         %td
-          - if session[:user] and session[:token].nil?
-            #page2
-              #header2
+          - if !@user.nil? and session[:token].nil?
+            #page
+              #header
                 .headerPadding
                   %h1.code#head_image
                     %span.fake-hover
@@ -43,8 +45,10 @@
                   %center
                     #page_effect
                       = yield
+                      
+            %div.clearBoth
 
-          - elsif session[:token]
+          - elsif !session[:token].nil?
             #page2
               %div.clearBoth
 
@@ -54,30 +58,14 @@
                   %center
                     #page_effect
                       = yield
-
+                      
+            %div.clearBoth
+            
           - else
-            #page
-              #header
-                .headerPadding
-                  %h1.code#head_image
-                    %span.fake-hover
-                    = link_to 'home', root_url
-                %div.clearBoth
-
-
-              #midpage
-                #wrapper
-                  #content
-                    .contentPadding
-                      #page_effect
-                        = yield
-              #side
-                .sidePadding
-                  = render :partial => 'homepage/sidebar'
-
-      %div.clearBoth
-
-    .hide
-      #footer
-        %center
-          %p &copy; Copyright 2010
+            =render :partial => 'layouts/session_without_user'
+  
+    -if !@user.nil?
+      .hide
+        #footer2
+          %center
+            %p &copy; Copyright 2010

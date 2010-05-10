@@ -1,0 +1,40 @@
+- session[:token] = session[:user].token
+- return_val = Login.labelled(session[:token])
+- @project_xmls = return_val[0]
+- @labels = return_val[1]
+- @project_stories = return_val[2]
+- @positions = return_val[3]
+- @x_arr = []
+
+- options = {}
+- options.update(:in_reply_to_status_id => params[:in_reply_to_status_id]) if params[:in_reply_to_status_id].present?
+
+-@labels.each do |label|
+  %td.valign
+    %div.ui-widget-header.label
+      %div
+        %a.ui-icon.ui-icon-circle-close{:href => '#'}
+      = label
+    - project_count = 0
+    - @project_xmls.each do |x|
+      - @x_arr << x.at('id').innerHTML
+      %li.dashed= x.at('name').innerHTML
+      %ul{:class => "#{x.at('id').innerHTML} sortable movable connectedSortable_#{x.at('id').innerHTML}"}
+        - s = Login.find_labels(@project_stories[project_count], label)
+        - story_pos = 0
+        - s.each do |a|
+          - (0 .. @positions[project_count].size - 1).each do |z|
+            - if (@positions[project_count][z] == a.at('id').innerHTML)
+              - story_pos = z
+          - if a.at('story_type').innerHTML == "release"
+            %li{:pos => "#{story_pos}", :title => "#{a.at('name').innerHTML}", :class => 'milestone state-disabled cursor-default center'}
+              = a.at('name').innerHTML
+          -else
+            %li{:pos => "#{story_pos}", :title => "#{a.at('name').innerHTML}", :class => "ui-state-default"}
+              %div.icons
+                %img{:src => "images/move.png", :class => "corner"}
+                -if ( a.at('estimate')  and a.at('estimate').innerHTML != "-1")
+                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
+                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }
+                = a.at('name').innerHTML
+      - project_count += 1
