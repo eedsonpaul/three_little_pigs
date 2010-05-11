@@ -6,7 +6,6 @@
   #content-box
     .contentBoxPadding
       - if session[:user]
-        - @user = User.find(session[:user])
         - form_tag :action => 'pivotal' do
           = flash[:message]
           = flash[:warning]
@@ -18,12 +17,12 @@
                 %tr
                   %th{:colspan => '2'}
                     Ahoy! Ahoy,
-                    = @user.screen_name + '.'
+                    =session[:screen_name] + '.`'
                     Connect with Pivotal Tracker right now!
               %tbody
                 %tr
                   %td Please input your API Token:
-                  %td= text_field :users, :token
+                  %td= text_field :sessions, :token
                   %td{:align => 'left'}= submit_tag 'Submit', :class => 'ui-button'
               %tfoot
                 %tr

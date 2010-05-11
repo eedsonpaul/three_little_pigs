@@ -9,16 +9,14 @@
   = render :partial => 'layouts/includes'
 
 %body
-  - if !session[:user].nil?
-    - @user = User.find(session[:user])
     
-  - if !@user.nil?
+  - if !session[:user].nil?
     #head-board
       %ul
         %span
         %li.bold.white
           Put your mind on Percolait. Welcome,
-          = @user.screen_name + '.'
+          = session[:screen_name] + '.'
         %li= link_to "| dashboard |", dash_path
         %li= link_to "| actions |", '#'
         %li= link_to "| account |", '#'
@@ -30,7 +28,7 @@
     %table
       %tr
         %td
-          - if !@user.nil? and session[:token].nil?
+          - if !session[:user].nil? and session[:token].nil?
             #page
               #header
                 .headerPadding
@@ -64,7 +62,7 @@
           - else
             =render :partial => 'layouts/session_without_user'
   
-    -if !@user.nil?
+    -if !session[:user].nil?
       .hide
         #footer2
           %center

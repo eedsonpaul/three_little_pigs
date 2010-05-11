@@ -8,7 +8,6 @@ class LoginController < ApplicationController
   before_filter :login_required, :only=>['dash', 'logout']
 
   def index
-    @user = User.new
   end
 
   def callback
@@ -19,9 +18,10 @@ class LoginController < ApplicationController
     session[:atoken] = oauth.access_token.token
     session[:asecret] = oauth.access_token.secret
     session[:token] = nil
-    session[:user] = @user = User.create(:screen_name => profile.screen_name, :twitter_id => profile.id)
+    session[:user] = profile.id
+    session[:screen_name] = profile.screen_name
     
-    if @user
+    if session[:user]
       redirect_to home_path
     else
       flash[:notice] = "Signing in failed"
@@ -29,7 +29,6 @@ class LoginController < ApplicationController
   end
   
   def dash
-	  @users = User.all
 	  @base_url = "http://www.pivotaltracker.com/services/v3/projects"
   end
   
