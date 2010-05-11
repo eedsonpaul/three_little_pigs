@@ -8,9 +8,10 @@ class UsersController < ApplicationController
     session['rsecret'] = oauth.request_token.secret
     redirect_to oauth.request_token.authorize_url
   end
+  
   def tweet
     options = {}
     options.update(:in_reply_to_status_id => params[:in_reply_to_status_id]) if params[:in_reply_to_status_id].present?
-    client.update("change",options)
+    client.update(params[:message],options)
   end
 end

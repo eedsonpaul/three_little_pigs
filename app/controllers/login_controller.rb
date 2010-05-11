@@ -29,6 +29,7 @@ class LoginController < ApplicationController
   end
   
   def dash
+    @root_url = "http://localhost:3000"
 	  @base_url = "http://www.pivotaltracker.com/services/v3/projects"
   end
   

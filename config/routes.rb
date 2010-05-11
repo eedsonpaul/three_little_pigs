@@ -10,4 +10,6 @@ ActionController::Routing::Routes.draw do |map|
   map.logout '/logout', :controller => 'login', :action => 'logout'
   map.dash '/dash', :controller => 'login', :action => 'dash'
   map.pivotal '/pivotal', :controller => 'login', :action => 'pivotal'
+  
+  map.tweet '/tweet', :controller => 'users', :action => 'tweet'
 end

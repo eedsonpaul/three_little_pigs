@@ -1,5 +1,4 @@
 - require 'json'
-
 //*****tables for each user
 //**************************
 %div.bold.ui-widget-header
@@ -15,7 +14,6 @@
   var connectSort = new Array(#{@x_arr.size});
   connectSort = #{@x_arr.to_json};
   
-  
   $(document).ready(function(index){
     $(connectSort).each(function(index, obj){
       $("." + this).sortable({
@@ -24,10 +22,10 @@
         revert: true,
         start: function(event, ui) {alert(ui.item.attr("title")) },
         stop: function(event, ui){
-          alert("YAY!");
-          $.ajax({ 
-            //type: "GET",
-            //url: "#{ tweet_user_url(session[:user]) }"
+          $.ajax({
+            type: "GET",
+            //url: alert(ui.item.attr("title"))
+            url: "#{@root_url}/tweet?message=" + ui.item.attr("title").toString()
           });
         }
       }).disableSelection();

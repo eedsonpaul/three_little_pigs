@@ -1,4 +1,5 @@
-twitter --version '0.9.1'
-pivotal-tracker  
-compass  
+pivotal-tracker
+twitter --version '0.9.1'  
+haml
+compass
 will_paginate
