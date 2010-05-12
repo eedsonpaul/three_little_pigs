@@ -29,7 +29,7 @@ class LoginController < ApplicationController
   end
   
   def dash
-    @root_url = "http://localhost:3000"
+    @root_url = "http://tlp.heroku.com"
 	  @base_url = "http://www.pivotaltracker.com/services/v3/projects"
   end
   
