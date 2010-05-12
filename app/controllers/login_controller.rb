@@ -29,7 +29,7 @@ class LoginController < ApplicationController
   end
   
   def dash
-    @root_url = "http://tlp.heroku.com"
+    @root_url = "http://localhost:3000"
 	  @base_url = "http://www.pivotaltracker.com/services/v3/projects"
   end
   
@@ -40,5 +40,4 @@ class LoginController < ApplicationController
   	session['rtoken'] = session['rsecret'] = nil
   	redirect_to home_path
   end
-
 end

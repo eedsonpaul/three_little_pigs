@@ -8,14 +8,24 @@
   %tbody.ui-widget-content
     %tr
       = render :partial => ('login/dash_items')
-               
-- time = Time.new
-- time = "#{time.strftime('%Y-%m-%d %H:%M:%S')}"
-
 :javascript
   var connectSort = new Array(#{@x_arr.size});
   connectSort = #{@x_arr.to_json};
+  function settime () {
+    var curtime = new Date();
+    var curhour = curtime.getHours();
+    var curmin = curtime.getMinutes();
+    var cursec = curtime.getSeconds();
+    var time = "";
 
+    if(curhour == 0) curhour = 12;
+      time = (curhour > 12 ? curhour - 12 : curhour) + ":" +
+             (curmin < 10 ? "0" : "") + curmin + ":" +
+             (cursec < 10 ? "0" : "") + cursec + " " +
+             (curhour > 12 ? "PM" : "AM");
+    return time;
+  }
+  var time = settime();
   $(document).ready(function(index){
     $(connectSort).each(function(index, obj){
       $("." + this).sortable({
@@ -24,9 +34,10 @@
         revert: true,
         start: function(event, ui) {alert(ui.item.attr("title")) },
         stop: function(event, ui){
+          time = settime();
           $.ajax({
             type: "GET",
-            url: "#{@root_url}/tweet?message=Updated this "+ ui.item.attr("type").toString()+": "+ui.item.attr("title").toString()
+            url: "#{@root_url}/tweet?message="+ time + " Updated this "+ ui.item.attr("type").toString()+": "+ui.item.attr("title").toString()
           });
         }
       }).disableSelection();
