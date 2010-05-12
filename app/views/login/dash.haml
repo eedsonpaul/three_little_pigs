@@ -9,11 +9,13 @@
     %tr
       = render :partial => ('login/dash_items')
                
-    
+- time = Time.new
+- time = "#{time.strftime('%Y-%m-%d %H:%M:%S')}"
+
 :javascript
   var connectSort = new Array(#{@x_arr.size});
   connectSort = #{@x_arr.to_json};
-  
+
   $(document).ready(function(index){
     $(connectSort).each(function(index, obj){
       $("." + this).sortable({
@@ -24,13 +26,12 @@
         stop: function(event, ui){
           $.ajax({
             type: "GET",
-            //url: alert(ui.item.attr("title"))
-            url: "#{@root_url}/tweet?message=" + ui.item.attr("title").toString()
+            url: "#{@root_url}/tweet?message=Updated this "+ ui.item.attr("type").toString()+": "+ui.item.attr("title").toString()
           });
         }
       }).disableSelection();
     });
-    
+      
       $('.ui-icon-circle-close').click(function() {
         $(this).parents('td:first').hide('slow', function() {
       });
