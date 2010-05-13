@@ -1,12 +1,3 @@
-- return_val = Login.labelled(session[:token])
-- @project_xmls = return_val[0]
-- @labels = return_val[1]
-- @project_stories = return_val[2]
-- @positions = return_val[3]
-- @x_arr = []
-- @l_arr = []
-- @label_count = 0
-
 -@labels.each do |label|
   - @label_count += 1
   - @l_arr << @label_count
@@ -17,7 +8,7 @@
     - project_count = 0
     - @project_xmls.each do |x|
       - @x_arr << x.at('id').innerHTML
-      %li.dashed= x.at('name').innerHTML
+      %div.dashed= x.at('name').innerHTML
       %ul{:class => "#{x.at('id').innerHTML} sortable movable connectedSortable_#{x.at('id').innerHTML}"}
         - s = Login.find_labels(@project_stories[project_count], label)
         - story_pos = 0
@@ -29,11 +20,10 @@
             %li{:pos => "#{story_pos}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => 'milestone state-disabled cursor-default center'}
               = a.at('name').innerHTML
           -else
-            %li{:pos => "#{story_pos}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => "ui-state-default"}
-              %div.icons
-                %img{:src => "images/move.png", :class => "corner"}
-                -if ( a.at('estimate')  and a.at('estimate').innerHTML != "-1")
-                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
-                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }
-                = a.at('name').innerHTML
-      - project_count += 1
+            %li{:pos => "#{story_pos}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => "hover"}
+              %img{:src => "images/move.png", :class => "corner"}
+              -if ( a.at('estimate')  and a.at('estimate').innerHTML != "-1")
+                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
+              %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }
+              = a.at('name').innerHTML
+    - project_count += 1

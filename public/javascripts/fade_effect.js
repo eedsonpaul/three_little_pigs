@@ -25,16 +25,21 @@ $(document).ready(function() {
     $(".hide").each(function() {
         $(this).hover(function() {
             $(this).stop().animate({ opacity: 1.0 }, 500);
-        },
-       function() {
-           $(this).stop().animate({ opacity: 0.0 }, 500);
+        },function() {
+         $(this).stop().animate({ opacity: 0.0 }, 500);
        });
     });
 });
 
 $(document).ready(function(){
-  $(document).ready(function () {
+  $(function () {
     $('#page_effect').fadeIn(1500);
+  });
+  
+  $(".hover").hover(function () {
+    $(this).addClass("hilite");
+  }, function () {
+    $(this).removeClass("hilite");
   });
 
   $(function(){
@@ -49,22 +54,18 @@ $(document).ready(function(){
       else	
         $('#head-board').stop().animate({'opacity':'1'},400);
       });
-
       $('#hear-board').hover(
         function (e) {
           var scrollTop = $(window).scrollTop();
           if(scrollTop != 0){
             $('#head-board').stop().animate({'opacity':'1'},400);
             }
-        },
-
-        function (e) {
+        }, function (e) {
           var scrollTop = $(window).scrollTop();
           if(scrollTop != 0){
             $('#head-board').stop().animate({'opacity':'0.2'},400);
-            }
-        }
-      );
-  });
+          }
+        });
+    });
 });
 
