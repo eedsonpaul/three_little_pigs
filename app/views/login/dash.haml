@@ -3,7 +3,10 @@
 //**************************
 %div.bold.ui-widget-header
   = link_to "PERCOLAIT TRACKER.", dash_url
-  
+
+-time = Time.new
+-time = time.strftime("%b %d, %Y")
+
 %table.ui-widget.collapse
   %tbody.ui-widget-content
     %tr
@@ -37,7 +40,8 @@
           time = settime();
           $.ajax({
             type: "GET",
-            url: "#{@root_url}/tweet?message="+ time + " Updated this "+ ui.item.attr("type").toString()+": "+ui.item.attr("title").toString()
+            url: "#{@root_url}/tweet?message=#{time} "+ time + " Updated this "+ ui.item.attr("type").toString()+": "+ui.item.attr("title").toString()
+            //url: alert(ui.item.attr("label"))
           });
         }
       }).disableSelection();
