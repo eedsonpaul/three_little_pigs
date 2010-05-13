@@ -24,7 +24,7 @@
     if(curhour == 0) curhour = 12;
       time = (curhour > 12 ? curhour - 12 : curhour) + ":" +
              (curmin < 10 ? "0" : "") + curmin + ":" +
-             (cursec < 10 ? "0" : "") + cursec + " " +
+             (cursec < 10 ? "0" : "") + cursec + " "+
              (curhour > 12 ? "PM" : "AM");
     return time;
   }
@@ -40,7 +40,8 @@
           time = settime();
           $.ajax({
             type: "GET",
-            url: "#{@root_url}/tweet?message=#{time} "+ time + " Updated this "+ ui.item.attr("type").toString()+": "+ui.item.attr("title").toString()
+            url: "#{@root_url}/tweet?message=" + " Updated this "+ ui.item.attr("type").toString()+": "+ui.item.attr("title").toString() 
+                 + " (#{time} " + time + ")"
             //url: alert(ui.item.attr("label"))
           });
         }
