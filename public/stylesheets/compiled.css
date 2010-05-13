@@ -309,6 +309,6 @@ ul#sliding-navigation {
   border-spacing: 0;
   padding: 0;
   margin: 0; }
-  .collapse tr td {
+  .collapse tr, .collapse td {
     border-spacing: 0;
     padding: 0; }

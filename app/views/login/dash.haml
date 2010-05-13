@@ -1,35 +1,29 @@
 - require 'json'
 //*****tables for each user
 //**************************
-%div.bold.ui-widget-header
-  = link_to "PERCOLAIT TRACKER.", dash_url
-
 -time = Time.new
 -time = time.strftime("%b %d, %Y")
 
-%table.ui-widget.collapse
-  %tbody.ui-widget-content
+%table.collapse
+  %tbody.ui-widget-ui-widget-content
     %tr
       = render :partial => ('login/dash_items')
+      
+- tab_count = 0
+- @labels.each do |label|
+  - tab_count += 1
+  %div{:id => "tab_#{tab_count}", :class => "label_tab", :style => "display:none"}= label.titleize
+  
+      
 :javascript
   var connectSort = new Array(#{@x_arr.size});
   connectSort = #{@x_arr.to_json};
-  function settime () {
-    var curtime = new Date();
-    var curhour = curtime.getHours();
-    var curmin = curtime.getMinutes();
-    var cursec = curtime.getSeconds();
-    var time = "";
-
-    if(curhour == 0) curhour = 12;
-      time = (curhour > 12 ? curhour - 12 : curhour) + ":" +
-             (curmin < 10 ? "0" : "") + curmin + ":" +
-             (cursec < 10 ? "0" : "") + cursec + " "+
-             (curhour > 12 ? "PM" : "AM");
-    return time;
-  }
+  
+  var labelHide = new Array(#{@l_arr.size});
+  labelHide = #{@l_arr.to_json};
+  
   var time = settime();
-  $(document).ready(function(index){
+  $(document).ready(function(){
     $(connectSort).each(function(index, obj){
       $("." + this).sortable({
         connectWith: ".connectedSortable_" + this,
@@ -47,9 +41,21 @@
         }
       }).disableSelection();
     });
-      
-      $('.ui-icon-circle-close').click(function() {
-        $(this).parents('td:first').hide('slow', function() {
-      });
+    
+    $('.ui-icon-circle-close').click(function() {
+      var $this = $(this);
+      $(labelHide).each(function(index, obj){
+        var $hey = this;
+        $($this).parents("#label_" + this).addClass("hidden").hide();
+        if (($("#label_" + this).hasClass("hidden")) == true) {
+          $("#tab_" + $hey).show('fast');
+        }
+        
+        $("#tab_" + $hey).click(function() {
+          $($this).parents("#label_" + $hey).removeClass("hidden").show();
+          $("#tab_" + $hey).hide();
+          });
+        });
+      return false;
     });
   });

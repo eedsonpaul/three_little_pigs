@@ -4,13 +4,16 @@
 - @project_stories = return_val[2]
 - @positions = return_val[3]
 - @x_arr = []
+- @l_arr = []
+- @label_count = 0
 
 -@labels.each do |label|
-  %td.valign
+  - @label_count += 1
+  - @l_arr << @label_count
+  %td{:id => "label_#{@label_count}", :class => "valign"}
     %div.ui-widget-header.label
-      %div
-        %a.ui-icon.ui-icon-circle-close{:href => '#'}
-      = label
+      %div.ui-icon.ui-icon-circle-close.pointer
+      = label.titleize
     - project_count = 0
     - @project_xmls.each do |x|
       - @x_arr << x.at('id').innerHTML
