@@ -1,15 +1,8 @@
-//dear person reading this, sorry kas kaayo og mga linya akong code. *bow* 
-
-
-//*****this page is the lay-out being used for all the pages
-//***********************************************************
-
 %head
   %title percolait tracker
   = render :partial => 'layouts/includes'
 
 %body
-    
   - if !session[:user].nil?
     #head-board
       %ul
@@ -19,7 +12,6 @@
           = session[:screen_name] + '.'
         %li= link_to "| dashboard |", dash_path
         %li= link_to "| actions |", '#'
-        %li= link_to "| account |", '#'
         %li= link_to "| settings |", '#'
         %li= link_to "| help |", '#'
         %li= link_to "| log-out |", logout_path
