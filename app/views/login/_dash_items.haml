@@ -21,9 +21,9 @@
               = a.at('name').innerHTML
           -else
             %li{:pos => "#{story_pos}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => "hover"}
-              %img{:src => "images/move.png", :class => "corner"}
               -if ( a.at('estimate')  and a.at('estimate').innerHTML != "-1")
                 %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
               %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }
               = a.at('name').innerHTML
+              %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/story_flyover_icon.png", :class =>"storyDetailIcon" }
       - project_count += 1

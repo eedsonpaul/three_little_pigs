@@ -286,14 +286,6 @@ ul#sliding-navigation {
   font-size: 14px;
   padding: 8px; }
 
-.corner {
-  position: relative;
-  top: 0;
-  left: 0;
-  margin: 0;
-  padding-bottom: 7px;
-  padding-right: 7px; }
-
 .collapse {
   border-collapse: collapse;
   border-spacing: 0;
@@ -313,3 +305,9 @@ ul#sliding-navigation {
   float: left;
   min-width: 100px;
   display: none; }
+
+.storyDetailIcon {
+  position: relative;
+  float: right;
+  display: none;
+  text-align: right; }

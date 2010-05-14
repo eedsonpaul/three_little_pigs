@@ -38,8 +38,10 @@ $(document).ready(function(){
   
   $(".hover").hover(function () {
     $(this).addClass("hilite");
+    $(this).children(".storyDetailIcon").show();
   }, function () {
     $(this).removeClass("hilite");
+    $(this).children(".storyDetailIcon").hide();
   });
 
   $(function(){
