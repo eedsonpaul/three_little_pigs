@@ -41,11 +41,16 @@ $(document).ready(function(){
     $(this).children(".storyDetailIcon").show().hover(function() {
       $(this).siblings(".story_card").show();
       }, function () {
-        $(this).siblings(".story_card").hide();
-        });
+        $(this).siblings(".story_card").hover(function() {
+          $(this).show();
+          }, function () {
+            $(this).hide();
+            });
+          });
   }, function () {
     $(this).removeClass("hilite");
     $(this).children(".storyDetailIcon").hide();
+    $(this).children(".story_card").hide();
   });
 
   $(function(){
