@@ -26,8 +26,15 @@
   connectSort = #{@x_arr.to_json};
   var labelHide = new Array(#{@l_arr.size});
   labelHide = #{@l_arr.to_json};
-  
   var time;
+  
+  function tweeter(item,time){
+    $.ajax({
+      type: "GET",
+      url: "#{@root_url}/tweet?message="+ " Updated this " +item.attr("type").toString()+ ": " +item.attr("title").toString()+ " (#{time} " +time+ ")"
+    });
+  }
+  
   $(document).ready(function(){
     $(connectSort).each(function(index, obj){
       $("." + this).sortable({
@@ -40,13 +47,6 @@
         }
       }).disableSelection();
     });
-    
-  function tweeter(item,time){
-    $.ajax({
-      type: "GET",
-      url: "#{@root_url}/tweet?message="+ " Updated this " +item.attr("type").toString()+ ": " +item.attr("title").toString()+ " (#{time} " +time+ ")"
-    });
-  }
     
     $('.ui-icon-circle-close').click(function() {
       var $this = $(this);
