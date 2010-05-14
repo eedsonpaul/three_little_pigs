@@ -38,7 +38,11 @@ $(document).ready(function(){
   
   $(".hover").hover(function () {
     $(this).addClass("hilite");
-    $(this).children(".storyDetailIcon").show();
+    $(this).children(".storyDetailIcon").show().hover(function() {
+      $(this).siblings(".story_card").show();
+      }, function () {
+        $(this).siblings(".story_card").hide();
+        });
   }, function () {
     $(this).removeClass("hilite");
     $(this).children(".storyDetailIcon").hide();

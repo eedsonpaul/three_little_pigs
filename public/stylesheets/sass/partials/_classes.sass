@@ -1,4 +1,8 @@
 //*************classes*************//
+ol
+  ul
+    list-style-type: none
+
 .clearBoth
   :clear both
   
@@ -95,6 +99,18 @@
   
 .storyDetailIcon
   +relative
+  :top 0
   :float right
   :display none
   :text-align right
+  
+.story_card
+  +border-radius(10px)
+  +absolute
+  :width 300px
+  :padding 5px
+  :background #FFF8C6
+  :z-index 999999
+  :display none
+  &hover
+    :display block

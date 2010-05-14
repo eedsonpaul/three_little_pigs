@@ -84,7 +84,8 @@ h7 {
   font-size: 10px; }
 
 p {
-  font-size: 12; }
+  font-size: 12;
+  padding: 0; }
 
 img {
   border: none; }
@@ -213,6 +214,9 @@ ul#sliding-navigation {
   margin: auto;
   height: 25px; }
 
+ol ul {
+  list-style-type: none; }
+
 .clearBoth {
   clear: both; }
 
@@ -308,6 +312,20 @@ ul#sliding-navigation {
 
 .storyDetailIcon {
   position: relative;
+  top: 0;
   float: right;
   display: none;
   text-align: right; }
+
+.story_card {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  position: absolute;
+  width: 300px;
+  padding: 5px;
+  background: #FFF8C6;
+  z-index: 999999;
+  display: none; }
+  .story_cardhover {
+    display: block; }

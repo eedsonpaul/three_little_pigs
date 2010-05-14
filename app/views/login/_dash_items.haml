@@ -26,11 +26,14 @@
               %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon" }
               = a.at('name').innerHTML
               %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/story_flyover_icon.png", :class =>"storyDetailIcon" }
-              %div
-                = a.at('name').innerHTML
-                = "requested by:"
-                = a.at('requested_by').innerHTML
-                = a.at('current_state').innerHTML
-                = a.at('description').innerHTML
+              %div{:class => "story_card", :style => "top: 0; left: 237px;"}
+                %h3.center= a.at('name').innerHTML
+                %p
+                  Requested by:
+                  = a.at('requested_by').innerHTML
+                %p
+                  Current State:
+                  = a.at('current_state').innerHTML
+                %p= a.at('description').innerHTML
                 %a{:href => "#{a.at('url').innerHTML}"}= a.at('url').innerHTML
       - project_count += 1
