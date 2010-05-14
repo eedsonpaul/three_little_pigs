@@ -36,13 +36,17 @@
         revert: true,
         stop: function(event, ui){
           time = settime();
-          $.ajax({
-            type: "GET",
-           url: "#{@root_url}/tweet?message="+ " Updated this " +ui.item.attr("type").toString()+ ": " +ui.item.attr("title").toString()+ " (#{time} " +time+ ")"
-          });
+          tweeter(ui.item,time);
         }
       }).disableSelection();
     });
+    
+  function tweeter(item,time){
+    $.ajax({
+      type: "GET",
+      url: "#{@root_url}/tweet?message="+ " Updated this " +item.attr("type").toString()+ ": " +item.attr("title").toString()+ " (#{time} " +time+ ")"
+    });
+  }
     
     $('.ui-icon-circle-close').click(function() {
       var $this = $(this);
