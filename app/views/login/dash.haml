@@ -34,7 +34,6 @@
         connectWith: ".connectedSortable_" + this,
         cancel: '.state-disabled',
         revert: true,
-        start: function(event, ui) {alert(ui.item.attr("title")) },
         stop: function(event, ui){
           time = settime();
           $.ajax({
