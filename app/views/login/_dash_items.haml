@@ -27,13 +27,13 @@
               = a.at('name').innerHTML
               %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/story_flyover_icon.png", :class =>"storyDetailIcon pointer"}
               %div.story_card.cursor-default
-                %h3.center= a.at('name').innerHTML
+                %h3.center= a.at('name').innerHTML.titleize
                 %p
                   Requested by:
                   = a.at('requested_by').innerHTML
                 %p
                   Current State:
-                  = a.at('current_state').innerHTML
+                  = a.at('current_state').innerHTML.titleize
                 %p= a.at('description').innerHTML
                 %a{:href => "#{a.at('url').innerHTML}"}= a.at('url').innerHTML
       - project_count += 1

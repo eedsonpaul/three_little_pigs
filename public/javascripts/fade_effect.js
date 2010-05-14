@@ -36,10 +36,16 @@ $(document).ready(function(){
     $('#page_effect').fadeIn(1500);
   });
   
+  var icon;
   $(".hover").hover(function () {
     $(this).addClass("hilite");
+    icon = $(this);
     $(this).children(".storyDetailIcon").show().hover(function() {
-      $(this).siblings(".story_card").show();
+      if (icon.offset().left + icon.width() + icon.parent().outerWidth() > window.outerWidth) {
+        $(this).siblings(".story_card").addClass('left').offset({left: (icon.offset().left - icon.parent().outerWidth()), top: icon.offset().top }).show();
+      } else {
+        $(this).siblings(".story_card").addClass('right').offset({left: (icon.offset().left + icon.outerWidth()), top: icon.offset().top }).show();
+        }  
       }, function () {
         $(this).siblings(".story_card").hover(function() {
           $(this).show();
