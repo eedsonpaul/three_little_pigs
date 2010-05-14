@@ -13,8 +13,11 @@
 =pages
   +margin-auto
   :min-width 600px
-
-
+  
+=footer-common
+  :bottom 0
+  :margin 0
+  :width 100%
 
 //*************main lay-out*************//
 #head-board
@@ -67,15 +70,11 @@
 
 #footer
   +relative
-  :bottom 0
-  :margin 0
-  :width 100%
+  +footer-common
   
 #footer2
   +fixed
-  :bottom 0
-  :margin 0
-  :width 100%
+  +footer-common
   
 .headerPadding
   :padding 1em

@@ -307,7 +307,9 @@ ul#sliding-navigation {
     padding: 0; }
 
 .hilite {
-  background: #DFFFFF; }
+  background: #DFFFFF;
+  border-top: 1px dotted #BFFFFF;
+  border-bottom: 1px dotted #BFFFFF; }
 
 .label_tab {
   border-right: 1px dotted #BFFFFF;
