@@ -9,10 +9,11 @@
 - @l_arr = []
 - @label_count = 0
 
-- tab_count = 0
-- @labels.each do |label|
-  - tab_count += 1
-  %div{:id => "tab_#{tab_count}", :class => "label_tab hover pointer"}= label.titleize
+%div.code#tab-container
+  - tab_count = 0
+  - @labels.each do |label|
+    - tab_count += 1
+    %div{:id => "tab_#{tab_count}", :class => "label_tab hover pointer"}= label.titleize
 
 %div.clearBoth
 %table.collapse

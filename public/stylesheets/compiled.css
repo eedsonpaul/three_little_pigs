@@ -41,7 +41,7 @@
 
 #content2 {
   margin: auto;
-  padding-top: 10px;
+  padding-top: 5px;
   padding-bottom: 30px; }
 
 #side {
@@ -79,15 +79,6 @@ body {
   background: white;
   font-family: Helvetica, sans-serif;
   text-align: center; }
-
-h3 {
-  font-size: 18px; }
-
-h4 {
-  font-size: 16px; }
-
-h5 {
-  font-size: 14px; }
 
 h7 {
   font-size: 10px; }
@@ -216,6 +207,12 @@ ul#sliding-navigation {
 .topPadding {
   padding-top: 15px; }
 
+#tab-container {
+  position: relative;
+  left: 0;
+  margin: auto;
+  height: 25px; }
+
 .clearBoth {
   clear: both; }
 
@@ -307,9 +304,7 @@ ul#sliding-navigation {
     padding: 0; }
 
 .hilite {
-  background: #DFFFFF;
-  border-top: 1px dotted #BFFFFF;
-  border-bottom: 1px dotted #BFFFFF; }
+  background: #DFFFFF; }
 
 .label_tab {
   border-right: 1px dotted #BFFFFF;
@@ -317,5 +312,4 @@ ul#sliding-navigation {
   margin: auto;
   float: left;
   min-width: 100px;
-  padding: 8px;
   display: none; }
