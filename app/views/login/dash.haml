@@ -1,7 +1,5 @@
 - require 'json'
 
-- time = Time.new
-- time = time.strftime("%b %d, %Y")
 - return_val = Login.labelled(session[:token])
 - @project_xmls = return_val[0]
 - @labels = return_val[1]
@@ -40,13 +38,11 @@
           time = settime();
           $.ajax({
             type: "GET",
-            url: "#{@root_url}/tweet?message=" + " Updated this "+ ui.item.attr("type").toString()+": "+ui.item.attr("title").toString() 
-                 + " (#{time} " + time + ")"
-            //url: alert(ui.item.attr("label"))
+           // url: "#{@root_url}/tweet?message=" + " Updated this "+ ui.item.attr("type").toString()+": "+ui.item.attr("title").toString() 
+             //    + " (#{time} " + time + ")"
           });
         }
       }).disableSelection();
-      return false;
     });
     
     $('.ui-icon-circle-close').click(function() {
