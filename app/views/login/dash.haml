@@ -51,15 +51,39 @@
     $('.ui-icon-circle-close').click(function() {
       var $this = $(this);
       $(labelHide).each(function(index, obj){
-        var $hey = this;
-        $($this).parents("#label_" + this).addClass("hidden").hide('slow');
-        if (($("#label_" + this).hasClass("hidden")) == true) {
-          $("#tab_" + $hey).show();
-        }
-        $("#tab_" + $hey).click(function() {
-          $($this).parents("#label_" + $hey).removeClass("hidden").show('slow');
-          $("#tab_" + $hey).hide();
+        var $i = this;
+        $($this).parents("#label_" + $i).addClass("hidden").hide('slow');
+        
+        if (($("#label_" + $i).hasClass("hidden")) == true) {
+          $("#tab_" + $i).show();
+          $.cookie('label_' + $i, 'hide');
+          $.cookie('tab_' + $i, 'show');
+          }
+        $("#tab_" + $i).click(function() {
+          $($this).parents("#label_" + $i).removeClass("hidden").show('slow');
+          $("#tab_" + $i).hide();
+          $.cookie('tab_' + $i, null);
+          $.cookie('label_' + $i, null);
         });
       });
+    });
+    
+    //cookies
+    $(labelHide).each(function(index, obj){
+      var $i = this;
+      var cook_label = $.cookie('label_' + $i);
+      var cook_tab = $.cookie('tab_' + $i);
+      
+      if (cook_label == 'hide') {
+        $('.ui-icon-circle-close').parents("#label_" + $i).addClass("hidden").hide();
+      };
+      if (cook_tab == 'show') {
+        $("#tab_" + $i).show().click( function() {
+          $('.ui-icon-circle-close').parents("#label_" + $i).removeClass("hidden").show('slow');
+            $("#tab_" + $i).hide()
+            $.cookie('tab_' + $i, null);
+            $.cookie('label_' + $i, null);
+          });
+      };
     });
   });

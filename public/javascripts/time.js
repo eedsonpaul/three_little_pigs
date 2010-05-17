@@ -1,3 +1,4 @@
+//time
 function settime () {
   var curtime = new Date();
   var curhour = curtime.getHours();
