@@ -26,8 +26,8 @@
   connectSort = #{@x_arr.to_json};
   var labelHide = new Array(#{@l_arr.size});
   labelHide = #{@l_arr.to_json};
-  var time;
   
+  var time;
   function tweeter(item,time){
     $.ajax({
       type: "GET",
@@ -35,6 +35,7 @@
     });
   }
   
+  //sortable
   $(document).ready(function(){
     $(connectSort).each(function(index, obj){
       $("." + this).sortable({
@@ -42,48 +43,15 @@
         cancel: '.state-disabled',
         revert: true,
         stop: function(event, ui){
-          time = settime();
-          tweeter(ui.item,time);
+          //time = settime();
+          //tweeter(ui.item, time);       
         }
       }).disableSelection();
     });
     
-    $('.ui-icon-circle-close').click(function() {
-      var $this = $(this);
-      $(labelHide).each(function(index, obj){
-        var $i = this;
-        $($this).parents("#label_" + $i).addClass("hidden").hide('slow');
-        
-        if (($("#label_" + $i).hasClass("hidden")) == true) {
-          $("#tab_" + $i).show();
-          $.cookie('label_' + $i, 'hide');
-          $.cookie('tab_' + $i, 'show');
-          }
-        $("#tab_" + $i).click(function() {
-          $($this).parents("#label_" + $i).removeClass("hidden").show('slow');
-          $("#tab_" + $i).hide();
-          $.cookie('tab_' + $i, null);
-          $.cookie('label_' + $i, null);
-        });
-      });
-    });
+    //show/hide labels
+    $('.ui-icon-circle-close').showHideFunc();
     
-    //cookies
-    $(labelHide).each(function(index, obj){
-      var $i = this;
-      var cook_label = $.cookie('label_' + $i);
-      var cook_tab = $.cookie('tab_' + $i);
-      
-      if (cook_label == 'hide') {
-        $('.ui-icon-circle-close').parents("#label_" + $i).addClass("hidden").hide();
-      };
-      if (cook_tab == 'show') {
-        $("#tab_" + $i).show().click( function() {
-          $('.ui-icon-circle-close').parents("#label_" + $i).removeClass("hidden").show('slow');
-            $("#tab_" + $i).hide()
-            $.cookie('tab_' + $i, null);
-            $.cookie('label_' + $i, null);
-          });
-      };
-    });
+    //show/hide labels cookies
+    $(labelHide).showHideCookies();
   });
