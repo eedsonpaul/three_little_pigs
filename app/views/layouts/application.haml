@@ -54,7 +54,12 @@
             =render :partial => 'layouts/session_without_user'
   
     -if !session[:user].nil?
-      .hide
-        #footer2
-          %center
-            %p &copy; Copyright 2010
+      #footer2
+        %center
+          %p &copy; Copyright 2010
+          
+:javascript
+  $(document).ready(function(){
+    $('#footer2').hoverTransparent();
+    $('.navi').hoverTransparent();
+  });

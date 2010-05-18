@@ -35,19 +35,9 @@
     });
   }
   
-  //sortable
   $(document).ready(function(){
-    $(connectSort).each(function(index, obj){
-      $("." + this).sortable({
-        connectWith: ".connectedSortable_" + this,
-        cancel: '.state-disabled',
-        revert: true,
-        stop: function(event, ui){
-          //time = settime();
-          //tweeter(ui.item, time);       
-        }
-      }).disableSelection();
-    });
+    //sortable and connectable lists
+    $(connectSort).connectedSortableLists();
     
     //show/hide labels
     $('.ui-icon-circle-close').showHideFunc();

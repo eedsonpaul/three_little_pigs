@@ -1,6 +1,20 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
+jQuery.fn.connectedSortableLists = function() {
+  return $(this).each(function(index, obj){
+    $("." + this).sortable({
+      connectWith: ".connectedSortable_" + this,
+      cancel: '.state-disabled',
+      revert: true,
+      stop: function(event, ui){
+        time = settime();
+        tweeter(ui.item, time);       
+      }
+    }).disableSelection();
+  });
+};
+
 jQuery.fn.showHideFunc = function() {
   return $(this).click(function() {
     var $this = $(this);
@@ -33,12 +47,13 @@ jQuery.fn.showHideCookies = function() {
     if (cook_label == 'hide') {
       $('.ui-icon-circle-close').parents("#label_" + $i).addClass("hidden").hide();
     };
+    
     if (cook_tab == 'show') {
       $("#tab_" + $i).show().click( function() {
-      $('.ui-icon-circle-close').parents("#label_" + $i).removeClass("hidden").show('slow');
-      $("#tab_" + $i).hide()
-      $.cookie('tab_' + $i, null);
-      $.cookie('label_' + $i, null);
+        $('.ui-icon-circle-close').parents("#label_" + $i).removeClass("hidden").show('slow');
+        $("#tab_" + $i).hide()
+        $.cookie('tab_' + $i, null);
+        $.cookie('label_' + $i, null);
       });
     };
   });
