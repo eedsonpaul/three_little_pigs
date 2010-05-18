@@ -46,23 +46,38 @@
         
           var prevPos = parseInt (ui.item.prevAll().attr("pos"));
           var nextPos = parseInt (ui.item.nextAll().attr("pos"));
-          
+          var params, data, uri;
           var move, target;
-          var project = ui.item.attr('project_id');
-          var story = ui.item.attr('story_id');
+          var xhr = new XMLHttpRequest;
           
           if (isNaN(prevPos)){
-            move = 'before';
+            move= 'before';
             target = ui.item.nextAll().attr('story_id');
           } else {
             move = 'after';
             target = ui.item.prevAll().attr('story_id');
           }
           
+          params = { 'move[move]' : move, 'move[target]' : target };
+          params['activity[label]'] = ui.item.attr('label');
+          
+          data = $.extend({}, {_method: 'PUT', project_id: ui.item.attr('project_id')}, params);
+                    
           $.ajax({
             type: 'POST',
-            url: "#{prioritize_url}?project=" + project + "&story=" + story + "&move=" + move  + "&target=" + target
+            //url: 'http://www.pivotaltracker.com/services/v3/projects/' + ui.item.attr('project_id') + '/stories/' + ui.item.attr('story_id'),
+                   //+ '/moves?'move\[move\]=' + move + '&move\[target\]=' + target,
+            url: 'http://cold.heroku.com/dash',
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+              alert('success!');
+            },
+            error: function () {
+              alert('error!');
+            }
           });
+          
           //curl -H "X-TrackerToken: ee480e8fb88013226a0f5da031a93ae8" 
           //-X POST  "http://www.pivotaltracker.com/services/v3/projects/77428/stories/3348776/moves?move\[move\]=before&move\[target\]=3348753" 
           //-d "move[move]=after&move[target]=3348753";
@@ -72,6 +87,19 @@
         }
       }).disableSelection();
     });
+
+    $(document).ajaxSend(function(event, request, settings) {
+      if (settings.type == 'GET' || settings.type == 'get') return;
+      
+      settings.data = settings.data || "";
+      settings.
+      data += (settings.data ? "&" : "") + "authencity_token=" + encodeURIComponent(token);
+    });
+      
+    $(function(){
+      $('.post').restForm('POST', {auth_token : token });
+      $('.delete').restForm('DELETE', {auth_token : token });
+    })
     
     //show/hide labels
     $('.ui-icon-circle-close').showHideFunc();

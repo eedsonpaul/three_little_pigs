@@ -11,4 +11,5 @@ ActionController::Routing::Routes.draw do |map|
   map.dash '/dash', :controller => 'login', :action => 'dash'
   map.pivotal '/pivotal', :controller => 'login', :action => 'pivotal'
   map.tweet '/tweet', :controller => 'users', :action => 'tweet'
+  map.prioritize '/story', :controller => 'login', :action => 'prioritize'
 end
