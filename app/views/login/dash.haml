@@ -36,8 +36,68 @@
   }
   
   $(document).ready(function(){
-    //sortable and connectable lists
-    $(connectSort).connectedSortableLists();
+    $(connectSort).each(function(index, obj){
+      $("." + this).sortable({
+        connectWith: ".connectedSortable_" + this,
+        cancel: '.state-disabled',
+        revert: true,
+        stop: function(event, ui){
+        
+          var prevPos = parseInt (ui.item.prevAll().attr("pos"));
+          var nextPos = parseInt (ui.item.nextAll().attr("pos"));
+          var params, data, uri;
+          
+          if (isNaN(prevPos)){
+            move= 'before';
+            target = ui.item.nextAll().attr('story_id');
+          } else {
+            move = 'after';
+            target = ui.item.prevAll().attr('story_id');
+          }
+          
+          params = { 'move[move]' : move, 'move[target]' : target };
+          if (ui.item.attr('label') != undefined && ui.item.attr('label') != '' ) 
+            params['activity[label]'] = ui.item.attr('label');
+          else params['activity[label]'] = '';
+          
+          data = $.extend({}, {_method: 'PUT', project_id: ui.item.attr('project_id')}, params);
+                    
+          $.ajax({
+            type: 'POST',
+            url: "http://pivotaltracker.com/services/v3/projects/" 
+                  + ui.item.attr('project_id') + "/stories/" + ui.item.attr('story_id'),
+            dataType: 'json',
+            data: data,
+            success: function (data) {
+              alert('success!');
+            },
+            error: function () {
+              alert('error!');
+            }
+          });
+          
+          //curl -H "X-TrackerToken: ee480e8fb88013226a0f5da031a93ae8" 
+          //-X POST  "http://www.pivotaltracker.com/services/v3/projects/77428/stories/3348776/moves?move\[move\]=before&move\[target\]=3348753" 
+          //-d "move[move]=after&move[target]=3348753";
+          
+          time = settime();
+          tweeter(ui.item, time);     
+        }
+      }).disableSelection();
+    });
+
+    $(document).ajaxSend(function(event, request, settings) {
+      if (typeof(token) == 'undefined') return;
+      if (settings.type == 'GET' || settings.type == 'get') return;
+      
+      settings.data = settings.data || "";
+      settings.data += (settings.data ? "&" : "") + "authencity_token=" + encodeURIComponent(token);
+    });
+      
+    $(function(){
+      $(',post').restForm('POST', {auth_token : token });
+      $('.delete').restForm('DELETE', {auth_token : token });
+    })
     
     //show/hide labels
     $('.ui-icon-circle-close').showHideFunc();

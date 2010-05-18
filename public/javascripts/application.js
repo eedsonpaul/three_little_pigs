@@ -1,20 +1,6 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-jQuery.fn.connectedSortableLists = function() {
-  return $(this).each(function(index, obj){
-    $("." + this).sortable({
-      connectWith: ".connectedSortable_" + this,
-      cancel: '.state-disabled',
-      revert: true,
-      stop: function(event, ui){
-        time = settime();
-        tweeter(ui.item, time);       
-      }
-    }).disableSelection();
-  });
-};
-
 jQuery.fn.showHideFunc = function() {
   return $(this).click(function() {
     var $this = $(this);
