@@ -5,7 +5,7 @@ class LoginController < ApplicationController
 	require 'uri'
 	require 'rubygems'
 
-  before_filter :login_required, :only=>['dash', 'logout']
+#  before_filter :login_required, :only=>['pivotal', 'logout']
 
   def index
   end
@@ -27,32 +27,12 @@ class LoginController < ApplicationController
       flash[:notice] = "Signing in failed"
     end
   end
-  
-  def to_xml(move, target)
-		builder = Nokogiri::XML::Builder.new do |xml|
-	    xml.move {
-	      xml.move move
-				xml.target target
-	    }
-    end
-	  return builder.to_xml
-	end
-  
-  def dash
-    @root_url = "http://localhost:3000"
-	  @base_url = "http://www.pivotaltracker.com/services/v3/projects"
-  end
-  
-  def prioritize
-    project = params[:project]
-    story = params[:story]
-    move = params[:move]
-    target = params[:target]
-	  @moved_story = connection["/projects/#{project}/stories/#{story}/moves"].post(self.to_xml(move, target), :content_type => 'application/xml')
-  end
-  
-  def connection
-  @connection ||= RestClient::Resource.new("https://www.pivotaltracker.com/services/v3", :headers => {'X-TrackerToken' => session[:token], 'Content-Type' => 'application/xml'})
+	
+  def pivotal
+  	if request.post?
+			session[:token] = params[:sessions][:token]
+  		redirect_to dash_path
+  	end
   end
   
   def logout

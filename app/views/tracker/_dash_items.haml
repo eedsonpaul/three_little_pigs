@@ -10,7 +10,7 @@
       - @x_arr << x.at('id').innerHTML
       %div.dashed= x.at('name').innerHTML
       %ul{:class => "#{x.at('id').innerHTML} sortable connectedSortable_#{x.at('id').innerHTML}" , :label => "#{label}"}
-        - s = Login.find_labels(@project_stories[project_count], label)
+        - s = Tracker.find_labels(@project_stories[project_count], label)
         - story_pos = 0
         - s.each do |a|
           - (0 .. @positions[project_count].size - 1).each do |z|

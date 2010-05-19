@@ -1,7 +1,7 @@
 .topPadding
   #content-box
     - if session[:user]
-      - form_tag :action => 'pivotal' do
+      - form_tag(pivotal_url) do
         = flash[:message]
         = flash[:warning]
 

@@ -1,8 +1,10 @@
 class ApplicationController < ActionController::Base
+
   include Twitter::AuthenticationHelpers
   helper :all 
   protect_from_forgery
   rescue_from Twitter::Unauthorized, :with => :force_sign_in
+  
   def login_required
     if session[:user]
       return true
@@ -25,6 +27,7 @@ class ApplicationController < ActionController::Base
       oauth.authorize_from_access(session[:atoken], session[:asecret])
       Twitter::Base.new(oauth)
     end
+    
     helper_method :client
     
     def force_sign_in(exception)

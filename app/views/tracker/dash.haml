@@ -1,6 +1,6 @@
 - require 'json'
 
-- return_val = Login.labelled(session[:token])
+- return_val = Tracker.labelled(session[:token])
 - @project_xmls = return_val[0]
 - @labels = return_val[1]
 - @project_stories = return_val[2]
@@ -19,7 +19,7 @@
 %table.collapse
   %tbody.ui-widget-ui-widget-content
     %tr
-      = render :partial => ('login/dash_items')
+      = render :partial => ('tracker/dash_items')
       
 %div.code#loading
   %img{:src => "/images/ajax-loader.gif"}
