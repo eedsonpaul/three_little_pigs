@@ -1,41 +1,6 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
 
-jQuery.fn.sortableFunc = function(options) {
-  return $(this).sortable({
-    connectWith: "defualtName",
-    cancel: 'stateName',
-    revert: true,
-    stop: function(event, ui){
-    
-      var prevPos = parseInt (ui.item.prevAll().attr("pos"));
-      var nextPos = parseInt (ui.item.nextAll().attr("pos"));
-      
-      var move, target;
-      var project = ui.item.attr('project_id');
-      var story = ui.item.attr('story_id');
-      
-      if (isNaN(prevPos)){
-        move = 'before';
-        target = ui.item.nextAll()
-      } else {
-        move = 'after';
-        target = ui.item.prevAll()
-      }
-      
-      $.ajax({
-        type: 'POST',
-        asynch: false,
-        url: "#{prioritize_url}?project=" + project + "&story=" + story + "&move=" + move  + "&target=" + target.attr('story_id') + "&label=" + target.attr('label'),
-      });
-      
-      time = settime();
-      //tweeter(ui.item, time);     
-    }
-  }, options).disableSelection();
-};
-
-
 jQuery.fn.showHideFunc = function() {
   return $(this).click(function() {
     var $this = $(this);

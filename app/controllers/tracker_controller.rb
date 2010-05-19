@@ -15,6 +15,7 @@ class TrackerController < ApplicationController
     move = params[:move]
     target = params[:target]
     label = params[:label]
+    
     if (label == "Other Activities")
       updated_label = connection["/projects/#{project}/stories/#{story}?story\[labels\]="].put(self.label_to_xml(" "), :content_type => 'application/xml')
     else
