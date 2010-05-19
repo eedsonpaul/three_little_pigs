@@ -9,6 +9,11 @@
 - @l_arr = []
 - @label_count = 0
 
+%div.code#overlay
+%div.code#loading
+  %img{:src => "/images/ajax-loader.gif"}
+  %h5 Updating...
+
 %div.code#tab-container
   - tab_count = 0
   - @labels.each do |label|
@@ -17,14 +22,10 @@
 
 %div.clearBoth
 %table.collapse
-  %tbody.ui-widget-ui-widget-content
+  %tbody.ui-widget
     %tr
       = render :partial => ('tracker/dash_items')
-      
-%div.code#loading
-  %img{:src => "/images/ajax-loader.gif"}
-  %h5 Updating...
-  
+
 :javascript
   var connectSort = new Array(#{@x_arr.size});
   connectSort = #{@x_arr.to_json};
@@ -75,15 +76,8 @@
       }).disableSelection();
     });
     
-    $(document).ajaxStart(function() {
-      $('#loading').show('slow');
-    }).ajaxStop(function() {
-      $('#loading').hide('slow');
-    });
-    
     //show/hide labels
     $('.ui-icon-circle-close').showHideFunc();
-    
     //show/hide labels cookies
     $(labelHide).showHideCookies();
   });

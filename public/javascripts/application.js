@@ -37,10 +37,22 @@ jQuery.fn.showHideCookies = function() {
     if (cook_tab == 'show') {
       $("#tab_" + $i).show().click( function() {
         $('.ui-icon-circle-close').parents("#label_" + $i).removeClass("hidden").show('slow');
-        $("#tab_" + $i).hide()
+        $("#tab_" + $i).hide();
         $.cookie('tab_' + $i, null);
         $.cookie('label_' + $i, null);
       });
     };
   });
 }
+
+$(document).ready(function(){
+  $(document).ajaxStart(function() {
+    $('#overlay').fadeIn('slow');
+    $('#loading').fadeIn('slow');
+  }).ajaxStop(function() {
+    $('#overlay').fadeOut('slow');
+    $('#loading').fadeOut('slow');
+  });
+});
+        
+    

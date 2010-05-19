@@ -21,10 +21,6 @@ jQuery.fn.hoverTransparent = function() {
 };
 
 $(document).ready(function(){
-  $(function () {
-    $('#page_effect').fadeIn(1333);
-  });
-  
   var icon;
   $(".hover").hover(function () {
     $(this).addClass("hilite");
