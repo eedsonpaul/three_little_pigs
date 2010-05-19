@@ -20,6 +20,10 @@
   %tbody.ui-widget-ui-widget-content
     %tr
       = render :partial => ('login/dash_items')
+      
+%div.code#loading
+  %img{:src => "/images/ajax-loader.gif"}
+  %h5 Updating...
   
 :javascript
   var connectSort = new Array(#{@x_arr.size});
@@ -71,6 +75,12 @@
           //tweeter(ui.item, time);     
         }
       }).disableSelection();
+    });
+    
+    $(document).ajaxStart(function() {
+      $('#loading').show('slow');
+    }).ajaxStop(function() {
+      $('#loading').hide('slow');
     });
     
     //show/hide labels
