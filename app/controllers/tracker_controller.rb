@@ -15,8 +15,12 @@ class TrackerController < ApplicationController
     move = params[:move]
     target = params[:target]
     label = params[:label]
-	  @moved_story = connection["/projects/#{project}/stories/#{story}/moves"].post(self.prioritize_to_xml(move, target), :content_type => 'application/xml')
-    @new_label = connection["/projects/#{project}/stories/#{story}/"].put(self.label_to_xml(label), :content_type => 'application/xml')
+    if (label == "Other Activities")
+      updated_label = connection["/projects/#{project}/stories/#{story}?story\[labels\]="].put(self.label_to_xml(" "), :content_type => 'application/xml')
+    else
+      updated_label = connection["/projects/#{project}/stories/#{story}/"].put(self.label_to_xml(label), :content_type => 'application/xml')
+    end
+	  moved_story = connection["/projects/#{project}/stories/#{story}/moves"].post(self.prioritize_to_xml(move, target), :content_type => 'application/xml')
   end
   
   def prioritize_to_xml(move, target)
