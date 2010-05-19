@@ -16,5 +16,6 @@ ActionController::Routing::Routes.draw do |map|
   map.pivotal '/pivotal', :controller => 'login', :action => 'pivotal'
   map.tweet '/tweet', :controller => 'twitter', :action => 'tweet'
   map.prioritize '/story', :controller => 'tracker', :action => 'prioritize'
+  map.label '/story', :controller => 'tracker', :action => 'update_label'
   
 end

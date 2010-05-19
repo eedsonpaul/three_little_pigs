@@ -17,7 +17,7 @@
             - if (@positions[project_count][z] == a.at('id').innerHTML)
               - story_pos = z
           - if a.at('story_type').innerHTML == "release"
-            %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => 'milestone state-disabled cursor-default center'}
+            %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => 'milestone state-disabled cursor-default center'}
               = a.at('name').innerHTML
           -else
             %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => "hover movable"}

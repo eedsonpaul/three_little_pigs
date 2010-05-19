@@ -1,5 +1,10 @@
 class Tracker < ActiveRecord::Base
 
+  require 'rubygems'
+  require 'hpricot'
+  require 'net/http'
+  require 'hpricot'
+  
 	def self.net_http(uri, token, tag)
 		response = Net::HTTP.start(uri.host, uri.port) do |http|
 			http.get(uri.path, {'X-TrackerToken' => token})

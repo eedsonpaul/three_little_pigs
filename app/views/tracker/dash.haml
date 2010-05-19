@@ -57,19 +57,17 @@
           
           if (isNaN(prevPos)){
             move = 'before';
-            target = ui.item.nextAll().attr('story_id');
+            target = ui.item.nextAll()
           } else {
             move = 'after';
-            target = ui.item.prevAll().attr('story_id');
+            target = ui.item.prevAll()
           }
           
           $.ajax({
             type: 'POST',
-            url: "#{prioritize_url}?project=" + project + "&story=" + story + "&move=" + move  + "&target=" + target
+            asynch: false,
+            url: "#{prioritize_url}?project=" + project + "&story=" + story + "&move=" + move  + "&target=" + target.attr('story_id') + "&label=" + target.attr('label'),
           });
-          //curl -H "X-TrackerToken: ee480e8fb88013226a0f5da031a93ae8" 
-          //-X POST  "http://www.pivotaltracker.com/services/v3/projects/77428/stories/3348776/moves?move\[move\]=before&move\[target\]=3348753" 
-          //-d "move[move]=after&move[target]=3348753";
           
           time = settime();
           //tweeter(ui.item, time);     
