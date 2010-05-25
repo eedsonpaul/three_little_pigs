@@ -17,12 +17,33 @@
             - if (@positions[project_count][z] == a.at('id').innerHTML)
               - story_pos = z
           - if a.at('story_type').innerHTML == "release"
-            %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => 'milestone state-disabled cursor-default center'}
+            %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => 'milestone state-disabled cursor-default'}
               = a.at('name').innerHTML
-          -else
-            %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => "hover movable"}
+              %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon", :style=> "float:right"}
+              
+          - elsif a.at('story_type').innerHTML != "release" and a.at('current_state').innerHTML != "unstarted"
+            %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => "hover movable current"}
               %div.story_items
-                -if ( a.at('estimate')  and a.at('estimate').innerHTML != "-1")
+                -if ( a.at('estimate') and a.at('estimate').innerHTML != "-1")
+                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
+                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon"}
+                = a.at('name').innerHTML
+              %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/story_flyover_icon.png", :class =>"storyDetailIcon pointer"}
+              %div.story_card.cursor-default
+                %h3.center= a.at('name').innerHTML.titleize
+                %p
+                  Requested by:
+                  = a.at('requested_by').innerHTML
+                %p
+                  Current State:
+                  = a.at('current_state').innerHTML.titleize
+                %p= a.at('description').innerHTML
+                %a{:href => "#{a.at('url').innerHTML}"}= a.at('url').innerHTML
+                
+          - else
+            %li.hover.movable{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => cycle('odd','even')}
+              %div.story_items
+                -if ( a.at('estimate') and a.at('estimate').innerHTML != "-1")
                   %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
                 %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon"}
                 = a.at('name').innerHTML
