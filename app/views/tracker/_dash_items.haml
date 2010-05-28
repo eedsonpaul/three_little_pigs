@@ -1,4 +1,4 @@
-- @labels.each do |label|
+-@labels.each do |label|
   - @label_count += 1
   - @l_arr << @label_count
   %td{:id => "label_#{@label_count}", :class => "valign"}
@@ -10,25 +10,14 @@
       - @x_arr << x.at('id').innerHTML
       %div.dashed= x.at('name').innerHTML.upcase
       - s = Tracker.find_labels(@project_stories[project_count], label)
-      - accepted = []
-      - started = []
-      - unstarted = []
+      - accepted = s[0]
+      - started = s[1]
+      - unstarted = s[2]
       - story_pos = 0
-      - s.each do |a|
-        - (0 .. @positions[project_count].size - 1).each do |z|
-          - if (@positions[project_count][z] == a.at('id').innerHTML)
-            - story_pos = z
-        - if (a.at('current_state').innerHTML == 'accepted' )
-          - accepted << a
-        - elsif (a.at('current_state').innerHTML == 'unstarted')
-          - unstarted << a
-        - else
-          - started << a
       
       //************accepted stories ***********//
-      - unless (accepted.empty?)
-        - logger.info("Accepted")
-        %ul{:class => "#{x.at('id').innerHTML} sortable connectedSortable_#{x.at('id').innerHTML}" , :label => "#{label}"}
+      - unless accepted.empty?
+        %ul{:class => "#{x.at('id').innerHTML}_accepted sortable acceptedConnectedSortable_#{x.at('id').innerHTML}" , :label => "#{label}"}
           - accepted.each do |a|
             - (0 .. @positions[project_count].size - 1).each do |z|
               - if (@positions[project_count][z] == a.at('id').innerHTML)
@@ -55,15 +44,18 @@
                     = a.at('current_state').innerHTML.titleize
                   %p= a.at('description').innerHTML
                   %a{:href => "#{a.at('url').innerHTML}"}= a.at('url').innerHTML
-                
+                  
       //************started/finished stories ***********//
-      - unless (started.empty?)
-        - logger.info("Started")
-        %ul{:class => "#{x.at('id').innerHTML} sortable connectedSortable_#{x.at('id').innerHTML}" , :label => "#{label}"}
-          - started.each do |s|
-            - (0 .. @positions[project_count].size - 1).each do |z|
-              - if (@positions[project_count][z] == s.at('id').innerHTML)
-                - story_pos = z
+      %ul{:class => "#{x.at('id').innerHTML} sortable connectedSortable_#{x.at('id').innerHTML}" , :label => "#{label}"}
+        - started.each do |s|
+          - (0 .. @positions[project_count].size - 1).each do |z|
+            - if (@positions[project_count][z] == s.at('id').innerHTML)
+              - story_pos = z
+          - if s.at('story_type').innerHTML == "release"
+            %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{s.at('id').innerHTML}", :label => "#{label}", :title => "#{s.at('name').innerHTML}", :type => "#{s.at('story_type').innerHTML}", :class => 'milestone state-disabled cursor-default'}
+              = s.at('name').innerHTML
+              %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{s.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon", :style=> "float:right"}
+          - else
             %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{s.at('id').innerHTML}", :label => "#{label}", :title => "#{s.at('name').innerHTML}", :type => "#{s.at('story_type').innerHTML}", :class =>  "hover movable current"}
               %div.story_items
                 -if ( s.at('estimate') and s.at('estimate').innerHTML != "-1")
@@ -81,10 +73,9 @@
                   = s.at('current_state').innerHTML.titleize
                 %p= s.at('description').innerHTML
                 %a{:href => "#{s.at('url').innerHTML}"}= s.at('url').innerHTML
-                  
+                
       //************unstarted stories ***********//
-      - unless (unstarted.empty?)
-        - logger.info("UNstarted")
+      - unless unstarted.empty?
         %ul{:class => "#{x.at('id').innerHTML}_unstarted sortable unstartedConnectedSortable_#{x.at('id').innerHTML}" , :label => "#{label}"}
           - unstarted.each do |u|
             - (0 .. @positions[project_count].size - 1).each do |z|
@@ -95,7 +86,7 @@
                 = u.at('name').innerHTML
                 %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{u.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon", :style=> "float:right"}
             - else
-              %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{u.at('id').innerHTML}", :label => "#{label}", :title => "#{u.at('name').innerHTML}", :type => "#{u.at('story_type').innerHTML}", :class => "unstarted hover movable"}
+              %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{u.at('id').innerHTML}", :label => "#{label}", :title => "#{u.at('name').innerHTML}", :type => "#{u.at('story_type').innerHTML}", :class =>  "unstarted hover movable"}
                 %div.story_items
                   -if ( u.at('estimate') and u.at('estimate').innerHTML != "-1")
                     %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{u.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
@@ -112,4 +103,5 @@
                     = u.at('current_state').innerHTML.titleize
                   %p= u.at('description').innerHTML
                   %a{:href => "#{u.at('url').innerHTML}"}= u.at('url').innerHTML
+                    
       - project_count += 1
