@@ -15,7 +15,6 @@ class TrackerController < ApplicationController
 	  project_count = 0
 	  
 	  projects = Hpricot((connection["/projects"].get).body).at('projects')
-	  logger.info(projects)
 	  (projects/'project').each_with_index do |p, project_count|
 	    @project_xmls << p
 	    

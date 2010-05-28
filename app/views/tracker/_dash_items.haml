@@ -1,4 +1,5 @@
--@labels.each do |label|
+- @labels = @labels.sort
+- @labels.each do |label|
   - @label_count += 1
   - @l_arr << @label_count
   %td{:id => "label_#{@label_count}", :class => "valign"}
@@ -8,54 +9,108 @@
     - project_count = 0
     - @project_xmls.each do |x|
       - @x_arr << x.at('id').innerHTML
-      %div.dashed= x.at('name').innerHTML
-      %ul{:class => "#{x.at('id').innerHTML} sortable connectedSortable_#{x.at('id').innerHTML}" , :label => "#{label}"}
-        - s = Tracker.find_labels(@project_stories[project_count], label)
-        - story_pos = 0
-        - s.each do |a|
-          - (0 .. @positions[project_count].size - 1).each do |z|
-            - if (@positions[project_count][z] == a.at('id').innerHTML)
-              - story_pos = z
-          - if a.at('story_type').innerHTML == "release"
-            %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => 'milestone state-disabled cursor-default'}
-              = a.at('name').innerHTML
-              %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon", :style=> "float:right"}
-              
-          - elsif a.at('story_type').innerHTML != "release" and a.at('current_state').innerHTML != "unstarted"
-            %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => "hover movable current"}
-              %div.story_items
-                -if ( a.at('estimate') and a.at('estimate').innerHTML != "-1")
-                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
-                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon"}
+      %div.dashed= x.at('name').innerHTML.upcase
+      - s = Tracker.find_labels(@project_stories[project_count], label)
+      - accepted = []
+      - started = []
+      - unstarted = []
+      - story_pos = 0
+      - s.each do |a|
+        - (0 .. @positions[project_count].size - 1).each do |z|
+          - if (@positions[project_count][z] == a.at('id').innerHTML)
+            - story_pos = z
+        - if (a.at('current_state').innerHTML == 'accepted' )
+          - accepted << a
+        - elsif (a.at('current_state').innerHTML == 'unstarted')
+          - unstarted << a
+        - else
+          - started << a
+      
+      //************accepted stories ***********//
+      - unless (accepted.empty?)
+        - logger.info("Accepted")
+        %ul{:class => "#{x.at('id').innerHTML} sortable connectedSortable_#{x.at('id').innerHTML}" , :label => "#{label}"}
+          - accepted.each do |a|
+            - (0 .. @positions[project_count].size - 1).each do |z|
+              - if (@positions[project_count][z] == a.at('id').innerHTML)
+                - story_pos = z
+            - if a.at('story_type').innerHTML == "release"
+              %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => 'milestone state-disabled cursor-default'}
                 = a.at('name').innerHTML
-              %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/story_flyover_icon.png", :class =>"storyDetailIcon pointer"}
-              %div.story_card.cursor-default
-                %h3.center= a.at('name').innerHTML.titleize
-                %p
-                  Requested by:
-                  = a.at('requested_by').innerHTML
-                %p
-                  Current State:
-                  = a.at('current_state').innerHTML.titleize
-                %p= a.at('description').innerHTML
-                %a{:href => "#{a.at('url').innerHTML}"}= a.at('url').innerHTML
+                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon", :style=> "float:right"}
+            - else
+              %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => "accepted state-disabled hover"}
+                %div.story_items
+                  -if ( a.at('estimate') and a.at('estimate').innerHTML != "-1")
+                    %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
+                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon"}
+                  = a.at('name').innerHTML
+                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/story_flyover_icon.png", :class =>"storyDetailIcon pointer"}
+                %div.story_card.cursor-default
+                  %h3.center= a.at('name').innerHTML.titleize
+                  %p
+                    Requested by:
+                    = a.at('requested_by').innerHTML
+                  %p
+                    Current State:
+                    = a.at('current_state').innerHTML.titleize
+                  %p= a.at('description').innerHTML
+                  %a{:href => "#{a.at('url').innerHTML}"}= a.at('url').innerHTML
                 
-          - else
-            %li.hover.movable{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{a.at('id').innerHTML}", :label => "#{label}", :title => "#{a.at('name').innerHTML}", :type => "#{a.at('story_type').innerHTML}", :class => cycle('odd','even')}
+      //************started/finished stories ***********//
+      - unless (started.empty?)
+        - logger.info("Started")
+        %ul{:class => "#{x.at('id').innerHTML} sortable connectedSortable_#{x.at('id').innerHTML}" , :label => "#{label}"}
+          - started.each do |s|
+            - (0 .. @positions[project_count].size - 1).each do |z|
+              - if (@positions[project_count][z] == s.at('id').innerHTML)
+                - story_pos = z
+            %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{s.at('id').innerHTML}", :label => "#{label}", :title => "#{s.at('name').innerHTML}", :type => "#{s.at('story_type').innerHTML}", :class =>  "hover movable current"}
               %div.story_items
-                -if ( a.at('estimate') and a.at('estimate').innerHTML != "-1")
-                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{a.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
-                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{a.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon"}
-                = a.at('name').innerHTML
+                -if ( s.at('estimate') and s.at('estimate').innerHTML != "-1")
+                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{s.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
+                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{s.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon"}
+                = s.at('name').innerHTML
               %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/story_flyover_icon.png", :class =>"storyDetailIcon pointer"}
               %div.story_card.cursor-default
-                %h3.center= a.at('name').innerHTML.titleize
+                %h3.center= s.at('name').innerHTML.titleize
                 %p
                   Requested by:
-                  = a.at('requested_by').innerHTML
+                  = s.at('requested_by').innerHTML
                 %p
                   Current State:
-                  = a.at('current_state').innerHTML.titleize
-                %p= a.at('description').innerHTML
-                %a{:href => "#{a.at('url').innerHTML}"}= a.at('url').innerHTML
+                  = s.at('current_state').innerHTML.titleize
+                %p= s.at('description').innerHTML
+                %a{:href => "#{s.at('url').innerHTML}"}= s.at('url').innerHTML
+                  
+      //************unstarted stories ***********//
+      - unless (unstarted.empty?)
+        - logger.info("UNstarted")
+        %ul{:class => "#{x.at('id').innerHTML}_unstarted sortable unstartedConnectedSortable_#{x.at('id').innerHTML}" , :label => "#{label}"}
+          - unstarted.each do |u|
+            - (0 .. @positions[project_count].size - 1).each do |z|
+              - if (@positions[project_count][z] == u.at('id').innerHTML)
+                - story_pos = z
+            - if u.at('story_type').innerHTML == "release"
+              %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{u.at('id').innerHTML}", :label => "#{label}", :title => "#{u.at('name').innerHTML}", :type => "#{u.at('story_type').innerHTML}", :class => 'milestone state-disabled cursor-default'}
+                = u.at('name').innerHTML
+                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{u.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon", :style=> "float:right"}
+            - else
+              %li{:pos => "#{story_pos}", :project_id => "#{x.at('id').innerHTML}", :story_id => "#{u.at('id').innerHTML}", :label => "#{label}", :title => "#{u.at('name').innerHTML}", :type => "#{u.at('story_type').innerHTML}", :class => "unstarted hover movable"}
+                %div.story_items
+                  -if ( u.at('estimate') and u.at('estimate').innerHTML != "-1")
+                    %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/estimate_#{u.at('estimate').innerHTML}pt_linear.gif", :class =>"estimateIcon" }
+                  %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/#{u.at('story_type').innerHTML}_icon.png", :class =>"storyTypeIcon"}
+                  = u.at('name').innerHTML
+                %img{:src=>"http://www.pivotaltracker.com/images/v3/icons/stories_view/story_flyover_icon.png", :class =>"storyDetailIcon pointer"}
+                %div.story_card.cursor-default
+                  %h3.center= u.at('name').innerHTML.titleize
+                  %p
+                    Requested by:
+                    = u.at('requested_by').innerHTML
+                  %p
+                    Current State:
+                    = u.at('current_state').innerHTML.titleize
+                  %p= u.at('description').innerHTML
+                  %a{:href => "#{u.at('url').innerHTML}"}= u.at('url').innerHTML
       - project_count += 1

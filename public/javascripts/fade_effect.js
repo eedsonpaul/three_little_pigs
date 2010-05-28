@@ -44,6 +44,13 @@ $(document).ready(function(){
     $(this).children(".story_card").hide();
   });
 
+  
+  $(".hiliter").hover(function () {
+    $(this).addClass("hilite");
+  }, function () {
+    $(this).removeClass("hilite");
+  });
+
   $(function(){
     Header.addFade("#head_image");
   });

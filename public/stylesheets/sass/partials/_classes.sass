@@ -22,7 +22,7 @@ ol
   :font-weight heavy
 
 .sortable
-  min-height: 20px
+  min-height: 10px
   list-style-type: none
   margin: 0
   padding: 0
@@ -78,9 +78,24 @@ ol
 .milestone
   :font-family serif
   :font-size 10px
-  :background #5c9ccc 50% 50% repeat-x
+  :background #5c9ccc
   :color #FFFFFF
 
+.unstarted
+  :font-family serif
+  :font-size 10px
+  :background #FFF8DC
+  :color #000000
+
+.accepted
+  :font-family serif
+  :font-size 10px
+  :background #ECE5B6
+  :color #000000
+  
+.current
+  :background #FFFFCC
+  
 .label
   :min-width 220px
   :font-size 12px
@@ -99,13 +114,12 @@ ol
 .hilite
   :background #DFFFFF
 
-.label_tab
+.label-tab
   :border-right 1px dotted #BFFFFF
-  :border-left 1px dotted #BFFFFF
-  :margin-left 5px
-  :float left
+  :padding-right 5px
   :min-width 100px
   :display none
+  :text-align right
   
 .story_card
   +border-radius(10px)
@@ -149,10 +163,3 @@ ol
   :line-height 30px
   :display none
   
-.odd
-
-.even
-  :background #F5F5F5
-
-.current
-  :background #F5F5DC

@@ -4,22 +4,23 @@
 - @l_arr = []
 - @label_count = 0
 
-%div.code#overlay
-%div.code#loading
+#overlay
+#loading
   %img{:src => "/images/ajax-loader.gif"}
   %h5 Updating...
 
-%div.code#tab-container
+#tab-container
+  Show/Hide Labels
   - tab_count = 0
   - @labels.each do |label|
     - tab_count += 1
-    %div{:id => "tab_#{tab_count}", :class => "label_tab hover pointer"}= label.titleize
+    %div{:id => "tab_#{tab_count}", :class => "label-tab hiliter pointer"}= label.titleize
 
-%div.clearBoth
-%table.collapse
-  %tbody.ui-widget
-    %tr
-      = render :partial => ('tracker/dash_items')
+#tab-content
+  %table.collapse
+    %tbody.ui-widget
+      %tr
+        = render :partial => ('tracker/dash_items')
 
 :javascript
   var connectSort = new Array(#{@x_arr.size});
@@ -40,6 +41,37 @@
     $(connectSort).each(function(index, obj){
       $("." + this).sortable({
         connectWith: ".connectedSortable_" + this,
+        cancel: '.state-disabled',
+        revert: true,
+        stop: function(event, ui){
+        
+          var prevPos = parseInt (ui.item.prevAll().attr("pos"));
+          var nextPos = parseInt (ui.item.nextAll().attr("pos"));
+          
+          var move, target;
+          var project = ui.item.attr('project_id');
+          var story = ui.item.attr('story_id');
+          
+          if (isNaN(prevPos)){
+            move = 'before';
+            target = ui.item.nextAll()
+          } else {
+            move = 'after';
+            target = ui.item.prevAll()
+          }
+          
+          $.ajax({
+            type: 'POST',
+            url: "#{prioritize_url}?project=" + project + "&story=" + story + "&move=" + move  + "&target=" + target.attr('story_id') + "&label=" + target.attr('label'),
+          });
+          
+          time = settime();
+          //tweeter(ui.item, time);     
+        }
+      }).disableSelection();
+      
+      $("." + this + "_unstarted").sortable({
+        connectWith: ".unstartedConnectedSortable_" + this,
         cancel: '.state-disabled',
         revert: true,
         stop: function(event, ui){

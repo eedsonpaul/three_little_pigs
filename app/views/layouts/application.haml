@@ -10,46 +10,43 @@
         %li.bold.white
           Put your mind on Percolait. Welcome,
           = session[:screen_name] + '.'
-        %li= link_to "| dashboard |", dash_path
-        %li= link_to "| settings |", '#'
-        %li= link_to "| help |", '#'
-        %li= link_to "| log-out |", logout_path
+        %li.hiliter= link_to "| dashboard |", dash_path
+        %li.hiliter= link_to "| log-out |", logout_path
 
   %center
-    %table
-      %tr
-        %td
-          - if !session[:user].nil? and session[:token].nil?
-            #page
-              #header
-                .headerPadding
-                  %h1.code#head_image
-                    %span.fake-hover
-                    = link_to 'home', root_url
-                %div.clearBoth
-
-            #midpage
-              #wrapper
-                #content2
-                  %center
-                    = yield
-                      
+    - if !session[:user].nil? and session[:token].nil?
+      #page
+        .contentPadding
+          #header
+            .headerPadding
+              %h1.code#head_image
+                %span.fake-hover
+                = link_to 'home', root_url
             %div.clearBoth
 
-          - elsif !session[:token].nil?
-            #page2
-              %div.clearBoth
+          #midpage
+            #wrapper
+              #content2
+                %center
+                  = yield
+                
+      %div.clearBoth
 
-            #midpage
-              #wrapper
-                #content2
-                  %center
-                    = yield
-                      
-            %div.clearBoth
-            
-          - else
-            =render :partial => 'layouts/session_without_user'
+    - elsif !session[:token].nil?
+      #page2
+        %div.clearBoth
+
+      #midpage
+        #wrapper
+          #content2
+            = yield
+                
+      %div.clearBoth
+      
+    - else
+      %table
+        %tr
+          %td= render :partial => 'layouts/session_without_user'
   
     -if !session[:user].nil?
       #footer2
