@@ -12,6 +12,7 @@
 #tab-container
   Show/Hide Labels
   - tab_count = 0
+  - @labels = @labels.sort
   - @labels.each do |label|
     - tab_count += 1
     %div{:id => "tab_#{tab_count}", :class => "label-tab hiliter pointer"}= label.titleize
